@@ -1,0 +1,6 @@
+{
+  "appTitle": "qp_for_all",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
