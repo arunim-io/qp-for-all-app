@@ -1,10 +1,10 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart' show Firebase;
+import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
 
-import 'src/config/app.dart';
-import 'src/config/firebase/options.dart';
-import 'src/modules/settings/controller.dart';
-import 'src/modules/settings/service.dart';
+import 'src/config/app.dart' show App;
+import 'src/config/firebase/options.dart' show DefaultFirebaseOptions;
+import 'src/modules/settings/controller.dart' show SettingsController;
+import 'src/modules/settings/service.dart' show SettingsService;
 
 void main() async {
   // Make sure that all bindings & plugins are initialized.
@@ -17,10 +17,11 @@ void main() async {
   // This prevents a sudden theme change when the app is first displayed.
   await settingsController.loadSettings();
 
+  // Load Firebase into the application.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MyApp(settingsController: settingsController));
+  runApp(App(settingsController: settingsController));
 }

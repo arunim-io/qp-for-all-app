@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart' show AppLocalizations;
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:qp_for_all/src/modules/core/views/sample_item_details.dart';
-import 'package:qp_for_all/src/modules/core/views/sample_item_list.dart';
-import 'package:qp_for_all/src/modules/settings/controller.dart';
-import 'package:qp_for_all/src/modules/settings/view.dart';
+
+import '../modules/core/views/home.dart' show HomeView;
+import '../modules/settings/controller.dart' show SettingsController;
+import '../modules/settings/view.dart' show SettingsView;
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.settingsController});
+class App extends StatelessWidget {
+  const App({super.key, required this.settingsController});
 
   final SettingsController settingsController;
 
@@ -53,11 +53,8 @@ class MyApp extends StatelessWidget {
               switch (routeSettings.name) {
                 case SettingsView.routeName:
                   return SettingsView(controller: settingsController);
-                case SampleItemDetailsView.routeName:
-                  return const SampleItemDetailsView();
-                case SampleItemListView.routeName:
                 default:
-                  return const SampleItemListView();
+                  return const HomeView();
               }
             },
           ),
