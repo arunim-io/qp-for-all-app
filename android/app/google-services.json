@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "7924463849",
+    "project_id": "qp-for-all",
+    "storage_bucket": "qp-for-all.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7924463849:android:83eac3baa6b4e83b09d878",
+        "android_client_info": {
+          "package_name": "com.example.qp_for_all"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "7924463849-li1o2baclg63hjfhmuiv55n4abrgcu3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAuWoUW0rWiIinQ88gON-dMPjEp7wTBIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7924463849-li1o2baclg63hjfhmuiv55n4abrgcu3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

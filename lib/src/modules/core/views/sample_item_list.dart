@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qp_for_all/src/modules/settings/view.dart';
 
-import '../settings/settings_view.dart';
-import 'sample_item.dart';
-import 'sample_item_details_view.dart';
+import '../models/sample_item.dart';
+import 'sample_item_details.dart';
 
 /// Displays a list of SampleItems.
 class SampleItemListView extends StatelessWidget {
