@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart' show ConsumerWidget, WidgetRef;
 
-import '../models/subject.dart' show Subject;
+import '../provider.dart' show subjectsProvider;
 import '../views/subject.dart' show SubjectView;
 
-class SubjectList extends StatelessWidget {
+class SubjectList extends ConsumerWidget {
   const SubjectList({super.key, required this.curriculum});
 
   final String curriculum;
 
   @override
-  Widget build(BuildContext context) {
-    const subjects = Subject.list;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final subjects = ref.read(subjectsProvider);
 
     return ListView.builder(
       restorationId: 'subjectsListView',
@@ -24,7 +25,12 @@ class SubjectList extends StatelessWidget {
         child: ListTile(
           title: Text(subjects[index].name, textScaleFactor: 1.75),
           minVerticalPadding: 5,
-          onTap: () => Navigator.restorablePushNamed(context, SubjectView.routeName),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SubjectView(subject: subjects[index]),
+            ),
+          ),
         ),
       ),
     );
