@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart' show AppLocalizations;
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:qp_for_all/src/modules/subject/views/subject.dart';
 
 import '../modules/core/views/home.dart' show HomeView;
 import '../modules/settings/controller.dart' show SettingsController;
@@ -53,6 +54,8 @@ class App extends StatelessWidget {
               switch (routeSettings.name) {
                 case SettingsView.routeName:
                   return SettingsView(controller: settingsController);
+                case SubjectView.routeName:
+                  return const SubjectView();
                 default:
                   return const HomeView();
               }

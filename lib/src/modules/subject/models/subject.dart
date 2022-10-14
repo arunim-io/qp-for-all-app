@@ -8,4 +8,12 @@ class Subject extends Equatable {
 
   @override
   List<Object?> get props => [id, name];
+
+  static const list = [
+    Subject(1, 'Physics'),
+    Subject(2, 'Chemistry'),
+    Subject(3, 'Biology'),
+    Subject(4, 'Maths'),
+    Subject(5, 'English'),
+  ];
 }
