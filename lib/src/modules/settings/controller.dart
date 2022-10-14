@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show ChangeNotifier, ThemeMode;
+import 'package:flutter/material.dart';
 
 import 'service.dart' show SettingsService;
 
