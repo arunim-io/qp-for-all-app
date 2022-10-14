@@ -33,11 +33,14 @@ class HomeView extends StatelessWidget {
             ],
             bottom: const TabBar(tabs: [Tab(text: 'Edexcel'), Tab(text: 'Cambridge')]),
           ),
-          body: const TabBarView(
-            children: [
-              SubjectList(curriculum: 'Edexcel'),
-              SubjectList(curriculum: 'Cambridge'),
-            ],
+          body: const Padding(
+            padding: EdgeInsets.all(10),
+            child: TabBarView(
+              children: [
+                SubjectList(curriculum: 'Edexcel'),
+                SubjectList(curriculum: 'Cambridge'),
+              ],
+            ),
           ),
         ),
       );
