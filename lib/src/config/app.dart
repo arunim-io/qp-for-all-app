@@ -57,7 +57,7 @@ class App extends StatelessWidget {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SubjectView.routeName:
-                    return const SubjectView(subject: null);
+                    return const SubjectView();
                   default:
                     return const HomeView();
                 }

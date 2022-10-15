@@ -28,7 +28,7 @@ class SubjectList extends ConsumerWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SubjectView(subject: subjects[index]),
+              builder: (context) => SubjectView(id: subjects[index].id),
             ),
           ),
         ),
