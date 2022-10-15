@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qp_for_all/src/modules/subject/provider.dart';
+import 'package:qp_for_all/src/modules/subject/widgets/session_list.dart';
 
 class SubjectView extends ConsumerWidget {
   const SubjectView({super.key, this.id});
@@ -20,9 +21,9 @@ class SubjectView extends ConsumerWidget {
           title: Text('${subject.name} Details'),
           bottom: const TabBar(
             tabs: [
-              Tab(text: 'IGSCE O-Levels'),
-              Tab(text: 'AS A-Levels'),
-              Tab(text: 'A2 A-Levels'),
+              Tab(text: 'IGSCE'),
+              Tab(text: 'AS'),
+              Tab(text: 'A2'),
             ],
           ),
         ),
@@ -30,9 +31,9 @@ class SubjectView extends ConsumerWidget {
           padding: EdgeInsets.all(10),
           child: TabBarView(
             children: [
-              Center(child: Text('IGCSE Papers')),
-              Center(child: Text('AS Papers')),
-              Center(child: Text('A2 Papers')),
+              SessionListWidget(qualification: 'IGSCE'),
+              SessionListWidget(qualification: 'AS'),
+              SessionListWidget(qualification: 'A2'),
             ],
           ),
         ),
