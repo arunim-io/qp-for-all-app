@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:qp_for_all/src/modules/subject/models/session.dart';
-import 'package:qp_for_all/src/utils.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart' show ConsumerWidget, WidgetRef;
 
-class SessionListWidget extends StatelessWidget {
+import '../../../utils.dart' show openUrl;
+import '../provider.dart' show sessionsProvider;
+
+class SessionListWidget extends ConsumerWidget {
   const SessionListWidget({super.key, required this.qualification});
 
   final String qualification;
-
-  final sessions = Session.list;
 
   Widget tile(String title) => ListTile(
         title: Row(
@@ -27,7 +27,9 @@ class SessionListWidget extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sessions = ref.watch(sessionsProvider);
+
     return ListView.builder(
       restorationId: 'sessionListView',
       itemCount: sessions.length,
