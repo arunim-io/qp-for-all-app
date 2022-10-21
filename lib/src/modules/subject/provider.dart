@@ -1,13 +1,22 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart' show Provider;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'models.dart' show Subject;
 import 'models/session.dart' show Session;
-import 'models/subject.dart' show Subject;
 
-final subjectsProvider = Provider((ref) => Subject.list, name: 'Products');
-
-final subjectProvider = Provider.family(
-  (ref, int id) => ref.watch(subjectsProvider)[id],
-  name: 'Product',
+final subjectsProvider = StreamProvider.autoDispose(
+  (_) => FirebaseFirestore.instance.collection('/subjects').snapshots().map(
+      (snapshot) => snapshot.docs.map((doc) => Subject.fromFirestore(doc.data(), doc.id)).toList()),
+  name: 'subjects',
 );
 
-final sessionsProvider = Provider((ref) => Session.list, name: 'Sessions');
+final subjectProvider = StreamProvider.autoDispose.family(
+  (ref, String docId) => FirebaseFirestore.instance
+      .collection('/subjects')
+      .doc(docId)
+      .snapshots()
+      .map((snapshot) => Subject.fromFirestore(snapshot.data(), snapshot.id)),
+  name: 'subject',
+);
+
+final sessionsProvider = Provider((_) => Session.list, name: 'Sessions');
