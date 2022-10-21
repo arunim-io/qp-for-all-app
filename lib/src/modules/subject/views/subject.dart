@@ -12,31 +12,35 @@ class SubjectView extends ConsumerWidget {
 
   static const routeName = '/subject';
 
-  Widget view(Subject subject) => DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text(subject.name),
-            bottom: const TabBar(
-              tabs: [
-                Tab(text: 'IGSCE'),
-                Tab(text: 'AS'),
-                Tab(text: 'A2'),
-              ],
-            ),
-          ),
-          body: const Padding(
-            padding: EdgeInsets.all(10),
-            child: TabBarView(
-              children: [
-                SessionListWidget(qualification: 'IGSCE'),
-                SessionListWidget(qualification: 'AS'),
-                SessionListWidget(qualification: 'A2'),
-              ],
-            ),
+  Widget view(Subject subject) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(subject.name),
+          bottom: subject.qualifications.length != 1
+              ? const TabBar(
+                  tabs: [
+                    Tab(text: 'IGSCE'),
+                    Tab(text: 'IAS'),
+                    Tab(text: 'IA2'),
+                  ],
+                )
+              : null,
+        ),
+        body: const Padding(
+          padding: EdgeInsets.all(10),
+          child: TabBarView(
+            children: [
+              SessionListWidget(qualification: 'IGSCE'),
+              SessionListWidget(qualification: 'IAS'),
+              SessionListWidget(qualification: 'IA2'),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => ref.watch(subjectProvider(id!)).when(

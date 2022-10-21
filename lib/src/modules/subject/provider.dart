@@ -4,9 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'models.dart' show Subject;
 import 'models/session.dart' show Session;
 
-final subjectsProvider = StreamProvider.autoDispose(
-  (_) => FirebaseFirestore.instance.collection('/subjects').snapshots().map(
-      (snapshot) => snapshot.docs.map((doc) => Subject.fromFirestore(doc.data(), doc.id)).toList()),
+final subjectsProvider = StreamProvider.autoDispose.family(
+  (ref, String query) => FirebaseFirestore.instance
+      .collection('/subjects')
+      .where('curriculums', arrayContains: query)
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => Subject.fromFirestore(doc.data(), doc.id)).toList()),
   name: 'subjects',
 );
 

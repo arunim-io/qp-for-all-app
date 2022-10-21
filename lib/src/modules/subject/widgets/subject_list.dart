@@ -39,8 +39,10 @@ class SubjectListWidget extends ConsumerWidget {
       );
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => ref.watch(subjectsProvider).when(
-        data: (data) => view(data),
+  Widget build(BuildContext context, WidgetRef ref) => ref.watch(subjectsProvider(curriculum)).when(
+        data: (data) {
+          return view(data);
+        },
         error: (error, stackTrace) => Center(
           child: Text(error.toString(), style: const TextStyle(color: Colors.red)),
         ),
