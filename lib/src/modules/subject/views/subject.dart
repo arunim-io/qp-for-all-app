@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models.dart' show Subject;
-import '../provider.dart' show subjectProvider;
+import '../providers.dart' show subjectProvider;
 import '../widgets/session_list.dart' show SessionListWidget;
 
 class SubjectView extends ConsumerWidget {
@@ -28,13 +28,13 @@ class SubjectView extends ConsumerWidget {
                 )
               : null,
         ),
-        body: const Padding(
-          padding: EdgeInsets.all(10),
+        body: Padding(
+          padding: const EdgeInsets.all(10),
           child: TabBarView(
             children: [
-              SessionListWidget(qualification: 'IGSCE'),
-              SessionListWidget(qualification: 'IAS'),
-              SessionListWidget(qualification: 'IA2'),
+              SessionListWidget(qualification: 'IGSCE', subjectId: subject.id),
+              SessionListWidget(qualification: 'IAS', subjectId: subject.id),
+              SessionListWidget(qualification: 'IA2', subjectId: subject.id),
             ],
           ),
         ),

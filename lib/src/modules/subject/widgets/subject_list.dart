@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models.dart' show Subject;
-import '../provider.dart' show subjectsProvider;
+import '../providers.dart' show subjectsProvider;
 import '../views/subject.dart' show SubjectView;
 
 class SubjectListWidget extends ConsumerWidget {
@@ -30,7 +30,7 @@ class SubjectListWidget extends ConsumerWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SubjectView(id: subject.docId),
+                  builder: (context) => SubjectView(id: subject.id),
                 ),
               ),
             ),
