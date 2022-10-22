@@ -3,8 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'models.dart' show Session, Subject;
 
+final firestore = FirebaseFirestore.instance;
+
 final subjectsProvider = StreamProvider.autoDispose.family(
-  (_, String curriculum) => FirebaseFirestore.instance
+  (_, String curriculum) => firestore
       .collection('/subjects')
       .where('curriculums', arrayContains: curriculum)
       .snapshots()
@@ -14,7 +16,7 @@ final subjectsProvider = StreamProvider.autoDispose.family(
 );
 
 final subjectProvider = StreamProvider.autoDispose.family(
-  (_, String id) => FirebaseFirestore.instance
+  (_, String id) => firestore
       .collection('/subjects')
       .doc(id)
       .snapshots()
@@ -23,7 +25,7 @@ final subjectProvider = StreamProvider.autoDispose.family(
 );
 
 final sessionsStreamProvider = StreamProvider.autoDispose.family(
-  (ref, String subjectId) => FirebaseFirestore.instance
+  (ref, String subjectId) => firestore
       .collection('/subjects')
       .doc(subjectId)
       .collection('/sessions')

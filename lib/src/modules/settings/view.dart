@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'controller.dart' show SettingsController;
 
-/// Displays the various settings that can be customized by the user.
-///
-/// When a user changes a setting, the SettingsController is updated and
-/// Widgets that listen to the SettingsController are rebuilt.
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key, required this.controller});
 
@@ -21,7 +17,7 @@ class SettingsView extends StatelessWidget {
           child: Row(
             children: [
               const Text('Theme: ', textScaleFactor: 1.25),
-              DropdownButton<ThemeMode>(
+              DropdownButton(
                 value: controller.themeMode,
                 onChanged: controller.updateThemeMode,
                 items: const [
