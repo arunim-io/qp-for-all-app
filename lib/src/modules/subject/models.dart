@@ -6,8 +6,7 @@ class Subject extends Equatable {
   @override
   List<Object?> get props => [id, name, curriculums, qualifications];
 
-  final String id;
-  final String name;
+  final String id, name;
   final List<dynamic> curriculums, qualifications;
   final List<Session>? sessions;
 
@@ -22,17 +21,37 @@ class Subject extends Equatable {
 }
 
 class Session extends Equatable {
-  const Session(this.id, this.name);
+  const Session(this.id, this.name, this.papers);
 
   @override
   List<Object?> get props => [id, name];
 
-  final String id;
-  final String name;
+  final String id, name;
+  final List<Paper>? papers;
 
   /// A constructor, for constructing a new model instance from a Firestore response.
   factory Session.fromFirestore(Map<String, dynamic>? data, String documentId) => Session(
         documentId,
         data!['name'],
+        data['papers'],
+      );
+}
+
+class Paper extends Equatable {
+  const Paper(this.id, this.name, this.curriculum, this.qualification, this.qpUrl, this.msUrl);
+
+  @override
+  List<Object?> get props => [id, name, curriculum, qualification, qpUrl, msUrl];
+
+  final String id, name, curriculum, qualification, qpUrl, msUrl;
+
+  /// A constructor, for constructing a new model instance from a Firestore response.
+  factory Paper.fromFirestore(Map<String, dynamic>? data, String documentId) => Paper(
+        documentId,
+        data!['name'],
+        data['curriculum'],
+        data['qualification'],
+        data['qp_url'],
+        data['ms_url'],
       );
 }

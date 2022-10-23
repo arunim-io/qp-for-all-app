@@ -18,6 +18,7 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   flutter_localizations:
     sdk: flutter
+  getwidget: ^3.0.1
   hooks_riverpod: ^2.0.2
   riverpod_annotation: ^1.0.4
   url_launcher: ^6.1.6
