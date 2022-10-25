@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qp_for_all/src/config/api/models.dart' show Subject;
 
-import '../models.dart' show Subject;
 import '../providers.dart' show subjectProvider;
-import '../widgets/session_list.dart' show SessionListWidget;
 
 class SubjectView extends ConsumerWidget {
   const SubjectView({super.key, this.id});
 
-  final String? id;
+  final int? id;
 
   static const routeName = '/subject';
 
@@ -28,13 +27,16 @@ class SubjectView extends ConsumerWidget {
                 )
               : null,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
+        body: const Padding(
+          padding: EdgeInsets.all(10),
           child: TabBarView(
             children: [
-              SessionListWidget(qualification: 'IGSCE', subjectId: subject.id),
-              SessionListWidget(qualification: 'IAS', subjectId: subject.id),
-              SessionListWidget(qualification: 'IA2', subjectId: subject.id),
+              Center(child: Text('IGCSE')),
+              Center(child: Text('IAS')),
+              Center(child: Text('IA2')),
+              // SessionListWidget(qualification: 'IGSCE', subjectId: subject.id),
+              // SessionListWidget(qualification: 'IAS', subjectId: subject.id),
+              // SessionListWidget(qualification: 'IA2', subjectId: subject.id),
             ],
           ),
         ),

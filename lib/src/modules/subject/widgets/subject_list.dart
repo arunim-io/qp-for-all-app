@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qp_for_all/src/config/api/models.dart' show Subject;
+import 'package:qp_for_all/src/modules/subject/views/subject.dart' show SubjectView;
 
-import '../models.dart' show Subject;
 import '../providers.dart' show subjectsProvider;
-import '../views/subject.dart' show SubjectView;
 
 class SubjectListWidget extends ConsumerWidget {
   const SubjectListWidget({super.key, required this.curriculum});

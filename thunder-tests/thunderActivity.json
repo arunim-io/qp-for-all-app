@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "ba781639-1589-498d-89f8-901432fc440a",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://127.0.0.1:8000/api/subjects",
+    "url": "http://127.0.0.1:8000/api/subjects",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-10-25T14:59:15.633Z",
+    "modified": "2022-10-25T15:47:43.143Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]

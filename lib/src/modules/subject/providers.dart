@@ -1,27 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qp_for_all/src/config/api/main.dart' show getSubject, getSubjects;
 
 import 'models.dart' show Session, Subject, Paper;
 
 final firestore = FirebaseFirestore.instance;
 
-final subjectsProvider = StreamProvider.autoDispose.family(
-  (_, String curriculum) => firestore
-      .collection('/subjects')
-      .where('curriculums', arrayContains: curriculum)
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => Subject.fromFirestore(doc.data(), doc.id)).toList()),
+final subjectsProvider = FutureProvider.autoDispose.family(
+  (_, String curriculum) => getSubjects(curriculum),
   name: 'subjects',
 );
 
-final subjectProvider = StreamProvider.autoDispose.family(
-  (_, String id) => firestore
-      .collection('/subjects')
-      .doc(id)
-      .snapshots()
-      .map((snapshot) => Subject.fromFirestore(snapshot.data(), snapshot.id)),
+final subjectProvider = FutureProvider.autoDispose.family(
+  (_, int id) => getSubject(id),
   name: 'subject',
 );
 

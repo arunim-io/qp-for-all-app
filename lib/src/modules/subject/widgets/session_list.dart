@@ -7,7 +7,8 @@ import '../providers.dart' show sessionsProvider;
 class SessionListWidget extends ConsumerWidget {
   const SessionListWidget({super.key, required this.qualification, required this.subjectId});
 
-  final String qualification, subjectId;
+  final String qualification;
+  final dynamic subjectId;
 
   Widget tile(String title) => ListTile(
         title: Row(
