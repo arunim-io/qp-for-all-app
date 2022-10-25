@@ -1,57 +1,76 @@
 import 'package:equatable/equatable.dart' show Equatable;
 
 class Subject extends Equatable {
-  const Subject(this.id, this.name, this.curriculums, this.qualifications, this.sessions);
+  const Subject(
+    this.id,
+    this.name,
+    this.curriculums,
+    this.qualifications,
+    this.sessions,
+    this.papers,
+  );
+
+  final int id;
+  final String name;
+  final List<String> curriculums;
+  final List<String> qualifications;
+  final List<Session> sessions;
+  final List<Paper> papers;
 
   @override
-  List<Object?> get props => [id, name, curriculums, qualifications];
+  List<Object?> get props => [id, name, curriculums, qualifications, sessions, papers];
 
-  final String id, name;
-  final List<dynamic> curriculums, qualifications;
-  final List<Session>? sessions;
-
-  /// A constructor, for constructing a new model instance from a Firestore response.
-  factory Subject.fromFirestore(Map<String, dynamic>? data, String documentId) => Subject(
-        documentId,
-        data!['name'],
-        data['curriculums'],
-        data['qualifications'],
-        data['sessions'],
-      );
-}
-
-class Session extends Equatable {
-  const Session(this.id, this.name, this.papers);
-
-  @override
-  List<Object?> get props => [id, name];
-
-  final String id, name;
-  final List<Paper>? papers;
-
-  /// A constructor, for constructing a new model instance from a Firestore response.
-  factory Session.fromFirestore(Map<String, dynamic>? data, String documentId) => Session(
-        documentId,
-        data!['name'],
-        data['papers'],
+  /// A constructor, for constructing a new model instance from a JSON response.
+  factory Subject.convertFromJSON(Map<String, dynamic> data) => Subject(
+        data['id'],
+        data['name'],
+        (data['curriculums'] as List).map((curriculum) => curriculum as String).toList(),
+        (data['qualifications'] as List).map((qualification) => qualification as String).toList(),
+        (data['sessions'] as List).map((session) => Session.convertFromJSON(session)).toList(),
+        (data['papers'] as List).map((paper) => Paper.convertFromJSON(paper)).toList(),
       );
 }
 
 class Paper extends Equatable {
-  const Paper(this.id, this.name, this.curriculum, this.qualification, this.qpUrl, this.msUrl);
+  const Paper(
+    this.id,
+    this.title,
+    this.subject,
+    this.curriculum,
+    this.qualification,
+    this.session,
+    this.qpUrl,
+    this.msUrl,
+  );
+
+  final int id;
+  final String title, subject, curriculum, qualification, session, qpUrl, msUrl;
 
   @override
-  List<Object?> get props => [id, name, curriculum, qualification, qpUrl, msUrl];
+  List<Object?> get props => [id, title, subject, curriculum, qualification, session, qpUrl, msUrl];
 
-  final String id, name, curriculum, qualification, qpUrl, msUrl;
-
-  /// A constructor, for constructing a new model instance from a Firestore response.
-  factory Paper.fromFirestore(Map<String, dynamic>? data, String documentId) => Paper(
-        documentId,
-        data!['name'],
+  /// A constructor, for constructing a new model instance from a JSON response.
+  factory Paper.convertFromJSON(Map<String, dynamic> data) => Paper(
+        data['id'],
+        data['title'],
+        data['subject'],
         data['curriculum'],
         data['qualification'],
+        data['session'],
         data['qp_url'],
         data['ms_url'],
       );
+}
+
+class Session extends Equatable {
+  const Session(this.id, this.name);
+
+  final int id;
+  final String name;
+
+  @override
+  List<Object?> get props => [id, name];
+
+  /// A constructor, for constructing a new model instance from a JSON response.
+  factory Session.convertFromJSON(Map<String, dynamic> data) => Session(data['id'], data['name']);
 }

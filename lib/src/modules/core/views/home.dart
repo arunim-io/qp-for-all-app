@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qp_for_all/src/modules/settings/view.dart' show SettingsView;
-import 'package:qp_for_all/src/modules/subject/widgets/subject_list.dart' show SubjectListWidget;
+
+import '../../settings/view.dart' show SettingsView;
+import '../../subject/widgets/subject_list.dart' show SubjectListWidget;
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

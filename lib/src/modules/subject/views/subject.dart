@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:qp_for_all/src/config/api/models.dart' show Subject;
 
+import '../models.dart' show Subject;
 import '../providers.dart' show subjectProvider;
 import '../widgets/session_list.dart' show SessionListWidget;
 

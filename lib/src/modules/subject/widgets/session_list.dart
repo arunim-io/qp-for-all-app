@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:qp_for_all/src/utils.dart' show openUrl;
 
-import '../../../config/api/models.dart' show Subject;
-import '../../../utils.dart' show openUrl;
+import '../models.dart' show Subject;
 
 class SessionListWidget extends ConsumerWidget {
   const SessionListWidget({super.key, required this.qualification, required this.subject});

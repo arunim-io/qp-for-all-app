@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart' show BaseOptions, Dio;
-
-import 'models.dart' show Subject;
+import 'package:qp_for_all/src/modules/subject/models.dart' show Subject;
 
 var dio = Dio(BaseOptions(baseUrl: 'http://10.0.2.2:8000/api'));
 
