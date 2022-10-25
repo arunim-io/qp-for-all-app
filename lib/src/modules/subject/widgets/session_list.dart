@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:qp_for_all/src/utils.dart' show openUrl;
 
-import '../models.dart' show Subject;
+import '../models.dart' show Subject, Paper;
 
 class SessionListWidget extends ConsumerWidget {
   const SessionListWidget({super.key, required this.qualification, required this.subject});
@@ -10,18 +10,23 @@ class SessionListWidget extends ConsumerWidget {
   final String qualification;
   final Subject subject;
 
-  Widget tile(String title) => ListTile(
-        title: Row(
+  Widget tile(Paper paper) => ListTile(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title),
-            TextButton(
-              child: const Text('Question Paper'),
-              onPressed: () => openUrl('https://www.google.com/'),
-            ),
-            const Text('-'),
-            TextButton(
-              child: const Text('Mark Scheme'),
-              onPressed: () => openUrl('https://www.google.com/'),
+            Text(paper.title),
+            Row(
+              children: [
+                TextButton(
+                  child: const Text('Question Paper'),
+                  onPressed: () => openUrl(paper.qpUrl),
+                ),
+                const Text('-'),
+                TextButton(
+                  child: const Text('Mark Scheme'),
+                  onPressed: () => openUrl(paper.msUrl),
+                ),
+              ],
             ),
           ],
         ),
@@ -37,13 +42,14 @@ class SessionListWidget extends ConsumerWidget {
           return ExpansionTile(
             title: Text(session.name),
             children: [
-              // tile('Paper 1'),
-              // tile('Paper 2'),
-              ListView.builder(itemBuilder: (context, index) {
-                final paper = subject.papers[index];
-
-                return tile(paper.title);
-              }),
+              ListView.builder(
+                restorationId: 'paperListView',
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemCount: subject.papers.length,
+                itemBuilder: (context, index) => tile(subject.papers[index]),
+              ),
             ],
           );
         },
