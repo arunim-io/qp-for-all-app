@@ -4,13 +4,15 @@ import '../../settings/view.dart' show SettingsView;
 import '../../subject/widgets/subject_list.dart' show SubjectListWidget;
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  HomeView({super.key});
 
   static const routeName = '/';
 
+  final curriculums = ['Edexcel', 'Cambridge'];
+
   @override
   Widget build(BuildContext context) => DefaultTabController(
-        length: 2,
+        length: curriculums.length,
         child: Scaffold(
           appBar: AppBar(
             title: const Text('QP for All'),
@@ -31,18 +33,14 @@ class HomeView extends StatelessWidget {
                 },
               )
             ],
-            bottom: const TabBar(tabs: [
-              Tab(text: 'Cambridge'),
-              Tab(text: 'Edexcel'),
-            ]),
+            bottom: TabBar(
+              tabs: curriculums.map<Tab>((item) => Tab(text: item)).toList(),
+            ),
           ),
-          body: const Padding(
-            padding: EdgeInsets.all(10),
+          body: Padding(
+            padding: const EdgeInsets.all(10),
             child: TabBarView(
-              children: [
-                SubjectListWidget(curriculum: 'Cambridge'),
-                SubjectListWidget(curriculum: 'Edexcel'),
-              ],
+              children: curriculums.map((item) => SubjectListWidget(curriculum: item)).toList(),
             ),
           ),
         ),

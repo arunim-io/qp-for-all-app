@@ -39,7 +39,7 @@ class App extends StatelessWidget {
                   case SubjectView.routeName:
                     return const SubjectView();
                   default:
-                    return const HomeView();
+                    return HomeView();
                 }
               },
             ),
