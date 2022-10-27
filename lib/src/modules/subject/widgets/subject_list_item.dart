@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:qp_for_all/src/modules/subject/providers.dart';
 
 import '../models.dart' show Subject;
 import '../views/subject.dart' show SubjectView;
 
 class SubjectListItemWidget extends StatelessWidget {
-  const SubjectListItemWidget({Key? key, required this.subject}) : super(key: key);
+  const SubjectListItemWidget({Key? key, required this.subject, required this.curriculum})
+      : super(key: key);
 
   final Subject subject;
+  final String curriculum;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -23,7 +26,8 @@ class SubjectListItemWidget extends StatelessWidget {
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => SubjectView(id: subject.id),
+              builder: (context) =>
+                  SubjectView(query: SubjectQuery(id: subject.id, curriculum: curriculum)),
             ),
           ),
         ),

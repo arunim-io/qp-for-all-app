@@ -50,6 +50,12 @@ class SessionListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => ListView.builder(
         restorationId: 'sessionListView',
         itemCount: subject.sessions.length,
-        itemBuilder: (BuildContext context, int index) => session(subject.sessions[index]),
+        itemBuilder: (BuildContext context, int index) {
+          print(qualification);
+
+          return subject.qualifications.contains(qualification)
+              ? session(subject.sessions[index])
+              : const Center(child: Text('Nothing to show'));
+        },
       );
 }
