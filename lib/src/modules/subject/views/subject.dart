@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers.dart' show SubjectQuery, subjectProvider;
-import '../widgets/session_list.dart' show SessionListWidget;
+import '../widgets/session_card.dart' show SessionCard;
 
 class SubjectView extends ConsumerWidget {
   const SubjectView({super.key, this.query});
@@ -17,25 +17,19 @@ class SubjectView extends ConsumerWidget {
           child: Text(error.toString(), style: const TextStyle(color: Colors.red)),
         ),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
-        data: (subject) => DefaultTabController(
-          length: subject.qualifications.length,
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(subject.name),
-              bottom: subject.qualifications.length != 1
-                  ? TabBar(tabs: subject.qualifications.map((e) => Tab(text: e)).toList())
-                  : null,
-            ),
-            body: subject.sessions.isEmpty || subject.qualifications.isEmpty
-                ? const Center(child: Text('Nothing to show'))
-                : Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: TabBarView(
-                      children: subject.qualifications
-                          .map((e) => SessionListWidget(qualification: e, subject: subject))
-                          .toList(),
-                    ),
-                  ),
+        data: (subject) => Scaffold(
+          appBar: AppBar(title: Text(subject.name)),
+          body: Padding(
+            padding: const EdgeInsets.all(10),
+            child:
+                subject.papers.where((element) => element.curriculum == query!.curriculum).isEmpty
+                    ? const Center(child: Text('Nothing to show'))
+                    : ListView.builder(
+                        restorationId: 'sessionListView',
+                        itemCount: subject.sessions.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            SessionCard(session: subject.sessions[index], subject: subject),
+                      ),
           ),
         ),
       );

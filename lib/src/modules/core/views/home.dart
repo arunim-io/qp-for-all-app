@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../settings/view.dart' show SettingsView;
-import '../../subject/widgets/subject_list.dart' show SubjectListWidget;
+import '../../subject/widgets/subject_list.dart' show SubjectList;
 
 class HomeView extends StatelessWidget {
   HomeView({super.key});
@@ -33,16 +33,8 @@ class HomeView extends StatelessWidget {
                 },
               )
             ],
-            bottom: TabBar(
-              tabs: curriculums.map<Tab>((item) => Tab(text: item)).toList(),
-            ),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(10),
-            child: TabBarView(
-              children: curriculums.map((item) => SubjectListWidget(curriculum: item)).toList(),
-            ),
-          ),
+          body: const Padding(padding: EdgeInsets.all(10), child: SubjectList()),
         ),
       );
 }
