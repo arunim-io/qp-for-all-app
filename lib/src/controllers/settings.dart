@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show ChangeNotifier, ThemeMode;
 
-import 'service.dart' show SettingsService;
+import '../services/settings.dart' show SettingsService;
 
 /// A class that many Widgets can interact with to read user settings, update
 /// user settings, or listen to user settings changes.

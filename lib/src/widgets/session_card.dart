@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils.dart' show openUrl;
 import '../models.dart' show Paper, Session, Subject;
+import '../utils.dart' show openUrl;
 
 class SessionCard extends StatelessWidget {
   const SessionCard({super.key, required this.session, required this.subject});

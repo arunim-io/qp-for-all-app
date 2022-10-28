@@ -1,4 +1,4 @@
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 /// Helper function for opening Urls.
 void openUrl(String url) async {

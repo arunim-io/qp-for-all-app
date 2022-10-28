@@ -3,10 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart' show AppLocalizatio
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 
-import '../modules/core/views/home.dart' show HomeView;
-import '../modules/settings/controller.dart' show SettingsController;
-import '../modules/settings/view.dart' show SettingsView;
-import '../modules/subject/views/subject.dart' show SubjectView;
+import '../controllers/settings.dart' show SettingsController;
+import '../views/home.dart' show HomeView;
+import '../views/settings.dart' show SettingsView;
+import '../views/subject.dart' show SubjectView;
 
 class App extends StatelessWidget {
   const App({super.key, required this.settingsController});

@@ -13,8 +13,11 @@ class SubjectView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => ref.watch(subjectProvider(query!)).when(
-        error: (error, stackTrace) => Center(
-          child: Text(error.toString(), style: const TextStyle(color: Colors.red)),
+        error: (error, stackTrace) => const Center(
+          child: Text(
+            'An error occurred. Please try again later',
+            style: TextStyle(color: Colors.red),
+          ),
         ),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
         data: (subject) => Scaffold(

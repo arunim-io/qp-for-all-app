@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'controller.dart' show SettingsController;
+import '../controllers/settings.dart' show SettingsController;
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key, required this.controller});
