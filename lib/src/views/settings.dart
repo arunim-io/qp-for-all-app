@@ -11,7 +11,10 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('Settings')),
+        appBar: AppBar(
+          title: const Text('Settings'),
+          leading: const BackButton(color: Colors.white),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(

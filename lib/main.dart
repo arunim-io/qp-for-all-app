@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
 
-import 'src/config/app.dart' show App;
+import 'src/app.dart' show App;
 import 'src/controllers/settings.dart' show SettingsController;
 import 'src/services/settings.dart' show SettingsService;
 

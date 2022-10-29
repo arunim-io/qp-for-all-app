@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -20,9 +22,10 @@ class HomeView extends ConsumerWidget {
             title: const Text('QP for All'),
             actions: [
               PopupMenuButton(
+                icon: const Icon(Icons.more_vert, color: Colors.white),
                 itemBuilder: (context) => [
                   const PopupMenuItem<int>(value: 0, child: Text('Settings')),
-                  const PopupMenuItem<int>(value: 1, child: Text('About'))
+                  const PopupMenuItem<int>(value: 1, child: Text('About')),
                 ],
                 onSelected: (value) {
                   switch (value) {
@@ -42,15 +45,20 @@ class HomeView extends ConsumerWidget {
                   data: (subjects) => ListView.builder(
                     restorationId: 'subjectsListView',
                     itemCount: subjects.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        SubjectCard(subject: subjects[index]),
-                  ),
-                  error: (error, stackTrace) => const Center(
-                    child: Text(
-                      'An error occurred. Please try again later',
-                      style: TextStyle(color: Colors.red),
+                    itemBuilder: (BuildContext context, int index) => SubjectCard(
+                      subject: subjects[index],
                     ),
                   ),
+                  error: (error, stackTrace) {
+                    log(error.toString());
+
+                    return const Center(
+                      child: Text(
+                        'An error occurred. Please try again later',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
+                  },
                   loading: () => const Center(child: CircularProgressIndicator.adaptive()),
                 ),
           ),

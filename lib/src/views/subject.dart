@@ -21,7 +21,10 @@ class SubjectView extends ConsumerWidget {
         ),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
         data: (subject) => Scaffold(
-          appBar: AppBar(title: Text(subject.name)),
+          appBar: AppBar(
+            title: Text(subject.name),
+            leading: const BackButton(color: Colors.white),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(10),
             child:

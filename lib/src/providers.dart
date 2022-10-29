@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart' show FutureProvider;
 
 import 'services/api.dart' show APIService;
 
-late final APIService api;
+final api = APIService();
 
 class SubjectQuery extends Equatable {
   const SubjectQuery({required this.id, this.curriculum, this.qualification});
