@@ -46,7 +46,7 @@ class SessionCard extends StatelessWidget {
         children: [
           ListTile(title: Text(session.name)),
           ListView.builder(
-            restorationId: 'paperListView',
+            restorationId: 'PaperListView',
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,

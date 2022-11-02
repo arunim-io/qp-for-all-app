@@ -27,7 +27,7 @@ class SubjectView extends ConsumerWidget {
                 subject.papers.where((element) => element.curriculum == query!.curriculum).isEmpty
                     ? const Center(child: Text('Nothing to show'))
                     : ListView.builder(
-                        restorationId: 'sessionListView',
+                        restorationId: 'SessionListView',
                         itemCount: subject.sessions.length,
                         itemBuilder: (BuildContext context, int index) =>
                             SessionCard(session: subject.sessions[index], subject: subject),

@@ -6,8 +6,8 @@ import '../models.dart' show Subject;
 class APIService {
   final _dio = Dio(BaseOptions(baseUrl: 'http://10.0.2.2:8000/api'));
 
-  Future<List<Subject>> getSubjects() async {
-    final response = await _dio.get('/subjects/');
+  Future<List<Subject>> getSubjects(String? query) async {
+    final response = await _dio.get('/subjects/', queryParameters: {'query': query});
 
     return (response.data as List)
         .map<Subject>((subject) => Subject.convertFromJSON(subject))

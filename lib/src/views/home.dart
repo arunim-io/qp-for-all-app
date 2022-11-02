@@ -1,13 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers.dart' show subjectsProvider;
+import '../providers.dart' show searchProvider, subjectsProvider;
+import '../widgets/search_bar.dart' show SearchBar;
 import '../widgets/subject_card.dart' show SubjectCard;
+import 'error.dart' show ErrorView;
 import 'settings.dart' show SettingsView;
 
-class HomeView extends ConsumerWidget {
+class HomeView extends HookConsumerWidget {
   HomeView({super.key});
 
   static const routeName = '/';
@@ -41,26 +41,26 @@ class HomeView extends ConsumerWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(10),
-            child: ref.watch(subjectsProvider).when(
-                  data: (subjects) => ListView.builder(
-                    restorationId: 'subjectsListView',
-                    itemCount: subjects.length,
-                    itemBuilder: (BuildContext context, int index) => SubjectCard(
-                      subject: subjects[index],
-                    ),
-                  ),
-                  error: (error, stackTrace) {
-                    log(error.toString());
-
-                    return const Center(
-                      child: Text(
-                        'An error occurred. Please try again later',
-                        style: TextStyle(color: Colors.red),
+            child: Column(
+              children: [
+                SearchBar(provider: searchProvider),
+                const SizedBox(height: 25),
+                Expanded(
+                  child: ref.watch(subjectsProvider).when(
+                        data: (subjects) => ListView.builder(
+                          restorationId: 'SubjectListView',
+                          itemCount: subjects.length,
+                          itemBuilder: (BuildContext context, int index) => SubjectCard(
+                            subject: subjects[index],
+                          ),
+                        ),
+                        error: (error, stackTrace) =>
+                            ErrorView(error: error, stackTrace: stackTrace),
+                        loading: () => const Center(child: CircularProgressIndicator.adaptive()),
                       ),
-                    );
-                  },
-                  loading: () => const Center(child: CircularProgressIndicator.adaptive()),
                 ),
+              ],
+            ),
           ),
         ),
       );

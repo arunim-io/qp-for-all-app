@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart' show FutureProvider;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show FutureProvider, StateProvider;
 
 import 'services/api.dart' show APIService;
 
@@ -16,7 +16,7 @@ class SubjectQuery extends Equatable {
 }
 
 final subjectsProvider = FutureProvider.autoDispose(
-  (_) => api.getSubjects(),
+  (ref) => api.getSubjects(ref.watch(searchProvider)),
   name: 'subjects',
 );
 
@@ -24,3 +24,5 @@ final subjectProvider = FutureProvider.autoDispose.family(
   (_, SubjectQuery query) => api.getSubject(query.id, query.curriculum, query.qualification),
   name: 'subject',
 );
+
+final searchProvider = StateProvider((_) => '', name: 'subjectSearch');

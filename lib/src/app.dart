@@ -32,7 +32,6 @@ class App extends StatelessWidget {
             onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
             theme: FlexThemeData.light(
               appBarStyle: FlexAppBarStyle.primary,
-              lightIsWhite: true,
               scheme: FlexScheme.jungle,
               textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
               transparentStatusBar: true,
@@ -41,7 +40,6 @@ class App extends StatelessWidget {
             ),
             darkTheme: FlexThemeData.dark(
               appBarStyle: FlexAppBarStyle.primary,
-              darkIsTrueBlack: true,
               scheme: FlexScheme.jungle,
               textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme)
                   .apply(bodyColor: Colors.white, displayColor: Colors.white),

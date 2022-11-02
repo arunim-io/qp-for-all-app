@@ -12,6 +12,7 @@ class SubjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Card(
         margin: const EdgeInsets.all(5),
+        borderOnForeground: false,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
