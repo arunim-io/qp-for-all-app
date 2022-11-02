@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../providers.dart' show SubjectQuery, subjectProvider;
 import '../widgets/session_card.dart' show SessionCard;
+import 'error.dart' show ErrorView;
 
 class SubjectView extends ConsumerWidget {
   const SubjectView({super.key, this.query});
@@ -13,12 +14,7 @@ class SubjectView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => ref.watch(subjectProvider(query!)).when(
-        error: (error, stackTrace) => const Center(
-          child: Text(
-            'An error occurred. Please try again later',
-            style: TextStyle(color: Colors.red),
-          ),
-        ),
+        error: (error, stackTrace) => ErrorView(error: error, stackTrace: stackTrace),
         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
         data: (subject) => Scaffold(
           appBar: AppBar(
