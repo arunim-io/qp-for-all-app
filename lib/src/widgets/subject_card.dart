@@ -30,6 +30,7 @@ class SubjectCard extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => SubjectView(
                             query: SubjectQuery(id: subject.id, curriculum: curriculum),
+                            subjectName: subject.name,
                           ),
                         ),
                       ),

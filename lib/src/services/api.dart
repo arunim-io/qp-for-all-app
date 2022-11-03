@@ -14,10 +14,15 @@ class APIService {
         .toList();
   }
 
-  Future<Subject> getSubject(int id, String? curriculum, String? qualification) async {
+  Future<Subject> getSubject(
+    int id,
+    String? curriculum,
+    String? qualification,
+    String? query,
+  ) async {
     final response = await _dio.get(
       '/subjects/$id/',
-      queryParameters: {"curriculum": curriculum, "qualification": qualification},
+      queryParameters: {"curriculum": curriculum, "qualification": qualification, 'query': query},
     );
 
     return Subject.convertFromJSON(response.data);

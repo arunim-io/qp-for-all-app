@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers.dart' show searchProvider, subjectsProvider;
+import '../providers.dart' show subjectSearchProvider, subjectsProvider;
 import '../widgets/search_bar.dart' show SearchBar;
 import '../widgets/subject_card.dart' show SubjectCard;
 import 'error.dart' show ErrorView;
@@ -43,7 +43,7 @@ class HomeView extends HookConsumerWidget {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                SearchBar(provider: searchProvider),
+                SearchBar(provider: subjectSearchProvider),
                 const SizedBox(height: 25),
                 Expanded(
                   child: ref.watch(subjectsProvider).when(

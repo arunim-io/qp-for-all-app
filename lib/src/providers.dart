@@ -16,13 +16,20 @@ class SubjectQuery extends Equatable {
 }
 
 final subjectsProvider = FutureProvider.autoDispose(
-  (ref) => api.getSubjects(ref.watch(searchProvider)),
+  (ref) => api.getSubjects(ref.watch(subjectSearchProvider)),
   name: 'subjects',
 );
 
 final subjectProvider = FutureProvider.autoDispose.family(
-  (_, SubjectQuery query) => api.getSubject(query.id, query.curriculum, query.qualification),
+  (ref, SubjectQuery query) => api.getSubject(
+    query.id,
+    query.curriculum,
+    query.qualification,
+    ref.watch(sessionSearchProvider),
+  ),
   name: 'subject',
 );
 
-final searchProvider = StateProvider((_) => '', name: 'subjectSearch');
+final subjectSearchProvider = StateProvider((_) => '', name: 'subjectSearch');
+
+final sessionSearchProvider = StateProvider((_) => '', name: 'sessionSearch');

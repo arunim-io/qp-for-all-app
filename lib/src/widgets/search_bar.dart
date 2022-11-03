@@ -12,7 +12,6 @@ class SearchBar extends HookConsumerWidget {
     final controller = useTextEditingController(text: ref.read(provider.notifier).state);
 
     return TextField(
-      autofocus: false,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         suffixIcon: controller.text.isNotEmpty
