@@ -54,8 +54,10 @@ class HomeView extends HookConsumerWidget {
                             subject: subjects[index],
                           ),
                         ),
-                        error: (error, stackTrace) =>
-                            ErrorView(error: error, stackTrace: stackTrace),
+                        error: (error, stackTrace) => ErrorView(
+                          error: error,
+                          stackTrace: stackTrace,
+                        ),
                         loading: () => const Center(child: CircularProgressIndicator.adaptive()),
                       ),
                 ),

@@ -14,14 +14,13 @@ class SessionCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('${paper.qualification} - ${paper.title}'),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+            Row(
               children: [
                 TextButton(
                   child: const Text('Question Paper'),
                   onPressed: () => openUrl(paper.qpUrl),
                 ),
+                const Text('-'),
                 TextButton(
                   child: const Text('Mark Scheme'),
                   onPressed: () => openUrl(paper.msUrl),
@@ -42,6 +41,7 @@ class SessionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 2.5,
       child: Column(
         children: [
           ListTile(title: Text(session.name)),
