@@ -1,4 +1,4 @@
-package com.example.qp_for_all
+package io.arunim.qp_for_all
 
 import io.flutter.embedding.android.FlutterActivity
 

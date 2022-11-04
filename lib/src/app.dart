@@ -1,8 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart'
     show FlexAppBarStyle, FlexScheme, FlexThemeData;
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart' show AppLocalizations;
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 
@@ -22,14 +20,6 @@ class App extends StatelessWidget {
           animation: settingsController,
           builder: (BuildContext context, Widget? child) => MaterialApp(
             restorationScopeId: 'app',
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [Locale('en', 'GB')],
-            onGenerateTitle: (BuildContext context) => AppLocalizations.of(context)!.appTitle,
             theme: FlexThemeData.light(
               appBarStyle: FlexAppBarStyle.primary,
               scheme: FlexScheme.jungle,
