@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart' show useTextEditingController;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchBar extends HookConsumerWidget {
-  const SearchBar({super.key, required this.provider});
+  const SearchBar({Key? key, required this.provider}) : super(key: key);
 
   final StateProvider<String> provider;
 

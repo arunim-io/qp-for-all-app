@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../controllers/settings.dart' show SettingsController;
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({super.key, required this.controller});
+  const SettingsView({Key? key, required this.controller}) : super(key: key);
 
   static const routeName = '/settings';
 

@@ -3,6 +3,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart'
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
+import 'package:qp_for_all/src/views/pdf_viewer.dart';
 
 import 'controllers/settings.dart' show SettingsController;
 import 'views/home.dart' show HomeView;
@@ -10,7 +11,7 @@ import 'views/settings.dart' show SettingsView;
 import 'views/subject.dart' show SubjectView;
 
 class App extends StatelessWidget {
-  const App({super.key, required this.settingsController});
+  const App({Key? key, required this.settingsController}) : super(key: key);
 
   final SettingsController settingsController;
 
@@ -46,8 +47,10 @@ class App extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SubjectView.routeName:
                     return const SubjectView();
+                  case PDFViewerView.routeName:
+                    return const PDFViewerView();
                   default:
-                    return HomeView();
+                    return const HomeView();
                 }
               },
             ),

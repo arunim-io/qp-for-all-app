@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qp_for_all/src/utils.dart';
 
 import '../models.dart' show Subject;
 import '../providers.dart' show SubjectQuery;
@@ -15,22 +16,17 @@ class SubjectCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
-              title: Text(subject.name, textScaleFactor: 1.75),
-              minVerticalPadding: 5,
-            ),
+            ListTile(title: Text(subject.name, textScaleFactor: 1.75), minVerticalPadding: 5),
             Column(
               children: subject.curriculums
                   .map(
                     (curriculum) => ListTile(
                       title: Text(curriculum),
-                      onTap: () => Navigator.push(
+                      onTap: () => navigate(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => SubjectView(
-                            query: SubjectQuery(id: subject.id, curriculum: curriculum),
-                            subjectName: subject.name,
-                          ),
+                        (_) => SubjectView(
+                          query: SubjectQuery(id: subject.id, curriculum: curriculum),
+                          subjectName: subject.name,
                         ),
                       ),
                     ),

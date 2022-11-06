@@ -7,12 +7,12 @@ import '../widgets/session_card.dart' show SessionCard;
 import 'error.dart' show ErrorView;
 
 class SubjectView extends ConsumerWidget {
-  const SubjectView({super.key, this.query, this.subjectName});
+  const SubjectView({Key? key, this.query, this.subjectName}) : super(key: key);
+
+  static const routeName = '/subject';
 
   final SubjectQuery? query;
   final String? subjectName;
-
-  static const routeName = '/subject';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(

@@ -3,10 +3,10 @@ import 'dart:developer' show log;
 import 'package:flutter/material.dart';
 
 class ErrorView extends StatelessWidget {
-  const ErrorView({super.key, required this.error, required this.stackTrace});
+  const ErrorView({Key? key, required this.error, required this.stackTrace}) : super(key: key);
 
   final Object error;
-  final StackTrace stackTrace;
+  final StackTrace? stackTrace;
 
   @override
   Widget build(BuildContext context) {

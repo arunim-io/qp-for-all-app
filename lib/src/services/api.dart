@@ -4,7 +4,7 @@ import '../models.dart' show Subject;
 
 /// A service that uses dio to connect to the server and fetch data.
 class APIService {
-  final _dio = Dio(BaseOptions(baseUrl: 'http://10.0.2.2:8000/api'));
+  final _dio = Dio(BaseOptions(baseUrl: 'http://192.168.0.9:8000/api'));
 
   Future<List<Subject>> getSubjects(String? query) async {
     final response = await _dio.get('/subjects/', queryParameters: {'query': query});

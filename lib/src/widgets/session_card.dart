@@ -1,60 +1,67 @@
 import 'package:flutter/material.dart';
 
-import '../models.dart' show Paper, Session, Subject;
-import '../utils.dart' show openUrl;
+import '../models.dart' show Session, Subject;
+import '../utils.dart' show navigate;
+import '../views/pdf_viewer.dart' show PDFViewerView;
 
 class SessionCard extends StatelessWidget {
-  const SessionCard({super.key, required this.session, required this.subject});
+  const SessionCard({Key? key, required this.session, required this.subject}) : super(key: key);
 
   final Subject subject;
   final Session session;
 
-  Widget paperView(Paper paper) => ListTile(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) => Card(
+        elevation: 2.5,
+        child: Column(
           children: [
-            Text('${paper.qualification} - ${paper.title}'),
-            Row(
-              children: [
-                TextButton(
-                  child: const Text('Question Paper'),
-                  onPressed: () => openUrl(paper.qpUrl),
-                ),
-                const Text('-'),
-                TextButton(
-                  child: const Text('Mark Scheme'),
-                  onPressed: () => openUrl(paper.msUrl),
-                ),
-              ],
-            ),
+            ListTile(title: Text(session.name)),
+            ListView.builder(
+              restorationId: 'PaperListView',
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: subject.papers.length,
+              itemBuilder: (context, index) {
+                final paper = subject.papers[index];
+
+                return Column(
+                  children: subject.qualifications
+                      .where((selected) => selected == paper.qualification)
+                      .map(
+                        (_) => ListTile(
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${paper.qualification} - ${paper.title}'),
+                              Row(
+                                children: [
+                                  TextButton(
+                                    child: const Text('Question Paper'),
+                                    onPressed: () => navigate(
+                                      context,
+                                      (_) => PDFViewerView(paper: paper.title, url: paper.qpUrl),
+                                    ),
+                                  ),
+                                  const Text('-'),
+                                  TextButton(
+                                    child: const Text('Mark Scheme'),
+                                    onPressed: () => navigate(
+                                      context,
+                                      (_) => PDFViewerView(paper: paper.title, url: paper.msUrl),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              },
+            )
           ],
         ),
       );
-
-  Widget view(Paper paper) => Column(
-        children: subject.qualifications
-            .where((element) => element == paper.qualification)
-            .map((e) => paperView(paper))
-            .toList(),
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2.5,
-      child: Column(
-        children: [
-          ListTile(title: Text(session.name)),
-          ListView.builder(
-            restorationId: 'PaperListView',
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemCount: subject.papers.length,
-            itemBuilder: (context, index) => view(subject.papers[index]),
-          )
-        ],
-      ),
-    );
-  }
 }

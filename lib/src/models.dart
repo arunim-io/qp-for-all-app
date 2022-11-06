@@ -18,7 +18,7 @@ class Subject extends Equatable {
   final List<Paper> papers;
 
   @override
-  List<Object?> get props => [id, name, curriculums, qualifications, sessions, papers];
+  List<Object> get props => [id, name, curriculums, qualifications, sessions, papers];
 
   /// A constructor, for constructing a new model instance from a JSON response.
   factory Subject.convertFromJSON(Map<String, dynamic> data) => Subject(
@@ -47,7 +47,7 @@ class Paper extends Equatable {
   final String title, subject, curriculum, qualification, session, qpUrl, msUrl;
 
   @override
-  List<Object?> get props => [id, title, subject, curriculum, qualification, session, qpUrl, msUrl];
+  List<Object> get props => [id, title, subject, curriculum, qualification, session, qpUrl, msUrl];
 
   /// A constructor, for constructing a new model instance from a JSON response.
   factory Paper.convertFromJSON(Map<String, dynamic> data) => Paper(
@@ -69,7 +69,7 @@ class Session extends Equatable {
   final String name;
 
   @override
-  List<Object?> get props => [id, name];
+  List<Object> get props => [id, name];
 
   /// A constructor, for constructing a new model instance from a JSON response.
   factory Session.convertFromJSON(Map<String, dynamic> data) => Session(data['id'], data['name']);
