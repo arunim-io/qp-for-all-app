@@ -28,19 +28,14 @@ class PDFViewerView extends StatelessWidget {
             icon: const Icon(Icons.more_vert, color: Colors.white),
             itemBuilder: (context) => [
               const PopupMenuItem<int>(value: 0, child: Text('Download')),
-              const PopupMenuItem<int>(value: 1, child: Text('Open with')),
-              const PopupMenuItem<int>(value: 2, child: Text('PDF details')),
             ],
-            onSelected: (value) {
-              switch (value) {
-                case 0:
-                  APIService().downloadPDFFile(url!, '${paper}_$fileType.pdf').then(
-                        (value) => ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('File has been downloaded.')),
-                        ),
-                      );
-              }
-            },
+            onSelected: (value) => value == 0
+                ? APIService().downloadPDFFile(url!, '${paper}_$fileType.pdf').then(
+                      (value) => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('File has been downloaded.')),
+                      ),
+                    )
+                : null,
           ),
         ],
       ),
