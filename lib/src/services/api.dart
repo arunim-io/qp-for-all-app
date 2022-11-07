@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart' show BaseOptions, Dio;
+import 'package:qp_for_all/src/utils.dart';
 
 import '../models.dart' show Subject;
 
@@ -26,5 +29,17 @@ class APIService {
     );
 
     return Subject.convertFromJSON(response.data);
+  }
+
+  Future<String?> downloadPDFFile(String url, String file) async {
+    final directory = await getDownloadPath();
+
+    try {
+      await _dio.download(url, '$directory/$file');
+      return directory;
+    } catch (error, stackTrace) {
+      log('ERROR', error: error, stackTrace: stackTrace);
+      throw Exception('Unable to download file');
+    }
   }
 }

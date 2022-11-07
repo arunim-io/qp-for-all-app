@@ -23,16 +23,10 @@ class HomeView extends HookConsumerWidget {
                 const PopupMenuItem<int>(value: 0, child: Text('Settings')),
                 const PopupMenuItem<int>(value: 1, child: Text('About')),
               ],
-              onSelected: (value) {
-                switch (value) {
-                  case 0:
-                    Navigator.restorablePushNamed(context, SettingsView.routeName);
-                    return;
-                  default:
-                    return;
-                }
-              },
-            )
+              onSelected: (value) => value == 0
+                  ? Navigator.restorablePushNamed(context, SettingsView.routeName)
+                  : null,
+            ),
           ],
         ),
         body: Padding(

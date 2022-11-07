@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models.dart' show Session, Subject;
+import '../models.dart' show PDFType, Session, Subject;
 import '../utils.dart' show navigate;
 import '../views/pdf_viewer.dart' show PDFViewerView;
 
@@ -40,7 +40,12 @@ class SessionCard extends StatelessWidget {
                                     child: const Text('Question Paper'),
                                     onPressed: () => navigate(
                                       context,
-                                      (_) => PDFViewerView(paper: paper.title, url: paper.qpUrl),
+                                      (_) => PDFViewerView(
+                                        paper: paper.title,
+                                        url: paper.qpUrl,
+                                        type: PDFType.qs,
+                                        title: 'Question Paper',
+                                      ),
                                     ),
                                   ),
                                   const Text('-'),
@@ -48,7 +53,12 @@ class SessionCard extends StatelessWidget {
                                     child: const Text('Mark Scheme'),
                                     onPressed: () => navigate(
                                       context,
-                                      (_) => PDFViewerView(paper: paper.title, url: paper.msUrl),
+                                      (_) => PDFViewerView(
+                                        paper: paper.title,
+                                        url: paper.msUrl,
+                                        type: PDFType.ms,
+                                        title: 'Mark Scheme',
+                                      ),
                                     ),
                                   ),
                                 ],

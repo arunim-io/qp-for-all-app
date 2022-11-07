@@ -74,3 +74,5 @@ class Session extends Equatable {
   /// A constructor, for constructing a new model instance from a JSON response.
   factory Session.convertFromJSON(Map<String, dynamic> data) => Session(data['id'], data['name']);
 }
+
+enum PDFType { ms, qs }
