@@ -10,7 +10,7 @@ class ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("ERROR", error: error, stackTrace: stackTrace);
+    log("An error occurred.", error: error, stackTrace: stackTrace);
 
     return const Center(
       child: Text(
