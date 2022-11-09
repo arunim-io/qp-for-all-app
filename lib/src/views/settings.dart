@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../controllers/settings.dart' show SettingsController;
 
+/// A Widget that shows the settings of this app.
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key, required this.controller}) : super(key: key);
+  ///
+  const SettingsView({super.key, required this.controller});
 
+  /// The route of this view.
   static const routeName = '/settings';
 
+  /// settings controller
   final SettingsController controller;
 
   @override
@@ -24,9 +28,18 @@ class SettingsView extends StatelessWidget {
                 value: controller.themeMode,
                 onChanged: controller.updateThemeMode,
                 items: const [
-                  DropdownMenuItem(value: ThemeMode.system, child: Text('System Theme')),
-                  DropdownMenuItem(value: ThemeMode.light, child: Text('Light Theme')),
-                  DropdownMenuItem(value: ThemeMode.dark, child: Text('Dark Theme'))
+                  DropdownMenuItem(
+                    value: ThemeMode.system,
+                    child: Text('System Theme'),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.light,
+                    child: Text('Light Theme'),
+                  ),
+                  DropdownMenuItem(
+                    value: ThemeMode.dark,
+                    child: Text('Dark Theme'),
+                  )
                 ],
               ),
             ],

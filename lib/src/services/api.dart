@@ -1,6 +1,7 @@
 import 'dart:developer' show log;
 
 import 'package:dio/dio.dart' show BaseOptions, Dio;
+import 'package:equatable/equatable.dart' show Equatable;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' show PrettyDioLogger;
 
 import '../models.dart' show Subject;
@@ -19,7 +20,7 @@ class APIService {
 
   /// Connects to the server and fetches data i.e a list of subjects.
   Future<List<Subject>> getSubjects(String? query) async {
-    final response = await _dio.get('/subjects/', queryParameters: {'query': query});
+    final response = await _dio.get<dynamic>('/subjects/', queryParameters: {'query': query});
 
     return (response.data as List)
         .map<Subject>(
@@ -35,7 +36,7 @@ class APIService {
     String? qualification,
     String? query,
   ) async {
-    final response = await _dio.get(
+    final response = await _dio.get<dynamic>(
       '/subjects/$id/',
       queryParameters: {
         'curriculum': curriculum,
@@ -59,4 +60,22 @@ class APIService {
       throw Exception('Unable to download file');
     }
   }
+}
+
+/// A class representing the query parameters that are used during API calls.
+class SubjectQuery extends Equatable {
+  ///
+  const SubjectQuery({required this.id, this.curriculum, this.qualification});
+
+  /// current id of the subject
+  final int id;
+
+  /// current curriculum
+  final String? curriculum;
+
+  /// current qualification
+  final String? qualification;
+
+  @override
+  List<Object?> get props => [id, curriculum, qualification];
 }

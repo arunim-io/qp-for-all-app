@@ -7,12 +7,14 @@ import '../services/settings.dart' show SettingsService;
 ///
 /// Uses [ChangeNotifier]
 class SettingsController with ChangeNotifier {
+  ///
   SettingsController(this._service);
 
   final SettingsService _service;
 
   late ThemeMode _mode;
 
+  /// The current theme to be used.
   ThemeMode get themeMode => _mode;
 
   /// Load the user's settings from the SettingsService.

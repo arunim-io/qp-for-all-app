@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:qp_for_all/src/utils.dart';
 
 import '../models.dart' show Subject;
-import '../providers.dart' show SubjectQuery;
+import '../services/api.dart' show SubjectQuery;
+import '../utils.dart' show navigate;
 import '../views/subject.dart' show SubjectView;
 
+/// A card that takes in a [Subject].
+///
+/// It currently shows the name & links to it under the specified curriculum.
 class SubjectCard extends StatelessWidget {
-  const SubjectCard({Key? key, required this.subject}) : super(key: key);
+  ///
+  const SubjectCard({super.key, required this.subject});
 
+  /// Subject details
   final Subject subject;
 
   @override
@@ -16,7 +21,10 @@ class SubjectCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(title: Text(subject.name, textScaleFactor: 1.75), minVerticalPadding: 5),
+            ListTile(
+              title: Text(subject.name, textScaleFactor: 1.75),
+              minVerticalPadding: 5,
+            ),
             Column(
               children: subject.curriculums
                   .map(
@@ -25,7 +33,10 @@ class SubjectCard extends StatelessWidget {
                       onTap: () => navigate(
                         context,
                         (_) => SubjectView(
-                          query: SubjectQuery(id: subject.id, curriculum: curriculum),
+                          query: SubjectQuery(
+                            id: subject.id,
+                            curriculum: curriculum,
+                          ),
                           subjectName: subject.name,
                         ),
                       ),

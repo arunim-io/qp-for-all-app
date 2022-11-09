@@ -4,10 +4,18 @@ import '../models.dart' show PDFType, Session, Subject;
 import '../utils.dart' show navigate;
 import '../views/pdf_viewer.dart' show PDFViewerView;
 
+/// A card that takes in a [Session].
+///
+/// It currently shows the name and
+/// provides details to the papers under the current session & qualification.
 class SessionCard extends StatelessWidget {
-  const SessionCard({Key? key, required this.session, required this.subject}) : super(key: key);
+  ///
+  const SessionCard({super.key, required this.session, required this.subject});
 
+  /// Current subject
   final Subject subject;
+
+  /// Current session
   final Session session;
 
   @override
@@ -21,7 +29,6 @@ class SessionCard extends StatelessWidget {
               restorationId: 'PaperListView',
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
               itemCount: subject.papers.length,
               itemBuilder: (context, index) {
                 final paper = subject.papers[index];

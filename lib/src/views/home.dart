@@ -7,9 +7,12 @@ import '../widgets/subject_card.dart' show SubjectCard;
 import 'error.dart' show ErrorView;
 import 'settings.dart' show SettingsView;
 
+/// This widget displays the home view of the app.
 class HomeView extends HookConsumerWidget {
-  const HomeView({Key? key}) : super(key: key);
+  ///
+  const HomeView({super.key});
 
+  /// The route of this view.
   static const routeName = '/';
 
   @override
@@ -24,7 +27,10 @@ class HomeView extends HookConsumerWidget {
                 const PopupMenuItem<int>(value: 1, child: Text('About')),
               ],
               onSelected: (value) => value == 0
-                  ? Navigator.restorablePushNamed(context, SettingsView.routeName)
+                  ? Navigator.restorablePushNamed(
+                      context,
+                      SettingsView.routeName,
+                    )
                   : null,
             ),
           ],
@@ -40,15 +46,17 @@ class HomeView extends HookConsumerWidget {
                       data: (subjects) => ListView.builder(
                         restorationId: 'SubjectListView',
                         itemCount: subjects.length,
-                        itemBuilder: (BuildContext context, int index) => SubjectCard(
-                          subject: subjects[index],
-                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return SubjectCard(subject: subjects[index]);
+                        },
                       ),
                       error: (error, stackTrace) => ErrorView(
                         error: error,
                         stackTrace: stackTrace,
                       ),
-                      loading: () => const Center(child: CircularProgressIndicator.adaptive()),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
                     ),
               ),
             ],

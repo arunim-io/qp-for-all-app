@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
-import 'package:qp_for_all/src/services/api.dart';
 
 import 'src/app.dart' show App;
 import 'src/controllers/settings.dart' show SettingsController;
+import 'src/services/api.dart' show APIService;
 import 'src/services/settings.dart' show SettingsService;
 
 void main() async {

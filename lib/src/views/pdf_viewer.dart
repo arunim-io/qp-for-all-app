@@ -10,13 +10,25 @@ import '../models.dart' show PDFType;
 import '../services/api.dart' show APIService;
 import 'error.dart' show ErrorView;
 
+/// A Widget that display a pdf reader.
 class PDFViewerView extends StatefulHookWidget {
-  const PDFViewerView({Key? key, this.paper, this.url, this.type, this.title}) : super(key: key);
+  ///
+  const PDFViewerView({super.key, this.paper, this.url, this.type, this.title});
 
+  /// The route of this view.
   static const routeName = '/pdf';
 
-  final String? paper, url, title;
+  /// whether it is a question paper or a mark scheme
   final PDFType? type;
+
+  /// title of the widget.
+  final String? title;
+
+  /// link to the pdf document.
+  final String? url;
+
+  /// name of the paper.
+  final String? paper;
 
   @override
   State<PDFViewerView> createState() => _PDFViewerViewState();
@@ -39,27 +51,47 @@ class _PDFViewerViewState extends State<PDFViewerView> {
 
   @override
   Widget build(BuildContext context) {
-    final fileType = widget.type == PDFType.qs ? 'question_paper' : 'mark_scheme';
+    final String fileType;
+    if (widget.type == PDFType.qs) {
+      fileType = 'question_paper';
+    } else {
+      fileType = 'mark_scheme';
+    }
 
-    final pageNumberController =
-        useTextEditingController(text: pfdViewerController.currentPageNumber.toString());
+    final pageNumberController = useTextEditingController(
+      text: pfdViewerController.currentPageNumber.toString(),
+    );
+
+    void download() {
+      APIService()
+          .downloadPDFFile(
+            widget.url!,
+            '${widget.paper}_$fileType.pdf',
+          )
+          .then(
+            (value) => ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('File has been downloaded.')),
+            ),
+          );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
-            title: Text(widget.paper!), subtitle: Text(widget.title!), textColor: Colors.white),
+          title: Text(widget.paper!),
+          subtitle: Text(widget.title!),
+          textColor: Colors.white,
+        ),
         leading: const BackButton(color: Colors.white),
         actions: [
           IconButton(
             icon: const Icon(Icons.download, color: Colors.white),
-            onPressed: () =>
-                APIService().downloadPDFFile(widget.url!, '${widget.paper}_$fileType.pdf').then(
-                      (value) => ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('File has been downloaded.')),
-                      ),
-                    ),
+            onPressed: download,
           ),
-          IconButton(icon: const Icon(Icons.print, color: Colors.white), onPressed: printPdf),
+          IconButton(
+            icon: const Icon(Icons.print, color: Colors.white),
+            onPressed: printPdf,
+          ),
         ],
       ),
       body: FutureBuilder<File>(
@@ -70,11 +102,14 @@ class _PDFViewerViewState extends State<PDFViewerView> {
                 viewerController: pfdViewerController,
               )
             : snapshot.hasError
-                ? ErrorView(error: snapshot.error!, stackTrace: snapshot.stackTrace)
+                ? ErrorView(
+                    error: snapshot.error!,
+                    stackTrace: snapshot.stackTrace,
+                  )
                 : const Center(child: CircularProgressIndicator.adaptive()),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showDialog(
+        onPressed: () => showDialog<void>(
           context: context,
           builder: (_) => AlertDialog(
             title: const Text('Go to Page Number'),

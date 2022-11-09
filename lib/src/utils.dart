@@ -17,10 +17,12 @@ Future<void> openURLInBrowser(String url) async {
 }
 
 /// Helper function for navigating to different views.
-void navigate(BuildContext context, Widget Function(BuildContext) builder) => Navigator.push(
-      context,
-      MaterialPageRoute(builder: builder),
-    );
+void navigate(BuildContext context, Widget Function(BuildContext) builder) {
+  Navigator.push(
+    context,
+    MaterialPageRoute<Widget>(builder: builder),
+  );
+}
 
 /// Helper function for getting the download folder path of the device.
 Future<String?> getDownloadPath() async {
@@ -32,7 +34,9 @@ Future<String?> getDownloadPath() async {
         directory = await getApplicationDocumentsDirectory();
       } else {
         directory = Directory('/storage/emulated/0/Download');
-        if (!await directory.exists()) directory = await getExternalStorageDirectory();
+        if (!directory.existsSync()) {
+          directory = await getExternalStorageDirectory();
+        }
       }
     } catch (error, stackTrace) {
       log('ERROR', error: error, stackTrace: stackTrace);
@@ -42,6 +46,7 @@ Future<String?> getDownloadPath() async {
   return directory?.path;
 }
 
+/// Helper function for checking for storage permission.
 Future<dynamic> getStoragePermission() async {
   final permission = await Permission.storage.request();
 
