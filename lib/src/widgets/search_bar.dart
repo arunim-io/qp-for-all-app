@@ -11,17 +11,16 @@ class SearchBar extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useTextEditingController(text: ref.read(provider.notifier).state);
 
+    void clear() {
+      controller.text = '';
+      ref.read(provider.notifier).state = '';
+    }
+
     return TextField(
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
         suffixIcon: controller.text.isNotEmpty
-            ? IconButton(
-                icon: const Icon(Icons.clear_rounded),
-                onPressed: () {
-                  controller.text = '';
-                  ref.read(provider.notifier).state = '';
-                },
-              )
+            ? IconButton(icon: const Icon(Icons.clear_rounded), onPressed: clear)
             : null,
       ),
       controller: controller,

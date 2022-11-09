@@ -31,6 +31,12 @@ class _PDFViewerViewState extends State<PDFViewerView> {
     super.dispose();
   }
 
+  Future<void> printPdf() async {
+    final response = await http.get(Uri.parse(widget.url!));
+
+    await Printing.layoutPdf(onLayout: (_) => response.bodyBytes);
+  }
+
   @override
   Widget build(BuildContext context) {
     final fileType = widget.type == PDFType.qs ? 'question_paper' : 'mark_scheme';
@@ -53,14 +59,7 @@ class _PDFViewerViewState extends State<PDFViewerView> {
                       ),
                     ),
           ),
-          IconButton(
-            icon: const Icon(Icons.print, color: Colors.white),
-            onPressed: () async {
-              final response = await http.get(Uri.parse(widget.url!));
-
-              await Printing.layoutPdf(onLayout: (_) => response.bodyBytes);
-            },
-          ),
+          IconButton(icon: const Icon(Icons.print, color: Colors.white), onPressed: printPdf),
         ],
       ),
       body: FutureBuilder<File>(

@@ -16,6 +16,7 @@ class SessionCard extends StatelessWidget {
         child: Column(
           children: [
             ListTile(title: Text(session.name)),
+            // ignore: avoid-shrink-wrap-in-lists
             ListView.builder(
               restorationId: 'PaperListView',
               shrinkWrap: true,
