@@ -1,9 +1,9 @@
-import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart' show Equatable;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show FutureProvider, StateProvider;
 
 import 'services/api.dart' show APIService;
 
-final api = APIService();
+final _api = APIService();
 
 class SubjectQuery extends Equatable {
   const SubjectQuery({required this.id, this.curriculum, this.qualification});
@@ -16,12 +16,12 @@ class SubjectQuery extends Equatable {
 }
 
 final subjectsProvider = FutureProvider.autoDispose(
-  (ref) => api.getSubjects(ref.watch(subjectSearchProvider)),
+  (ref) => _api.getSubjects(ref.watch(subjectSearchProvider)),
   name: 'subjects',
 );
 
 final subjectProvider = FutureProvider.autoDispose.family(
-  (ref, SubjectQuery query) => api.getSubject(
+  (ref, SubjectQuery query) => _api.getSubject(
     query.id,
     query.curriculum,
     query.qualification,

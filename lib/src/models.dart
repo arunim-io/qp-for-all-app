@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart' show Equatable;
+import 'package:json_annotation/json_annotation.dart' show JsonSerializable;
 
+part 'models.g.dart';
+
+@JsonSerializable()
 class Subject extends Equatable {
   const Subject(
     this.id,
@@ -10,6 +14,8 @@ class Subject extends Equatable {
     this.papers,
   );
 
+  factory Subject.fromJson(Map<String, dynamic> data) => _$SubjectFromJson(data);
+
   final int id;
   final String name;
   final List<String> curriculums;
@@ -18,19 +24,19 @@ class Subject extends Equatable {
   final List<Paper> papers;
 
   @override
-  List<Object> get props => [id, name, curriculums, qualifications, sessions, papers];
+  List<Object> get props => [
+        id,
+        name,
+        curriculums,
+        qualifications,
+        sessions,
+        papers,
+      ];
 
-  /// A constructor, for constructing a new model instance from a JSON response.
-  factory Subject.convertFromJSON(Map<String, dynamic> data) => Subject(
-        data['id'],
-        data['name'],
-        (data['curriculums'] as List).map((curriculum) => curriculum as String).toList(),
-        (data['qualifications'] as List).map((qualification) => qualification as String).toList(),
-        (data['sessions'] as List).map((session) => Session.convertFromJSON(session)).toList(),
-        (data['papers'] as List).map((paper) => Paper.convertFromJSON(paper)).toList(),
-      );
+  Map<String, dynamic> toJson() => _$SubjectToJson(this);
 }
 
+@JsonSerializable()
 class Paper extends Equatable {
   const Paper(
     this.id,
@@ -43,27 +49,31 @@ class Paper extends Equatable {
     this.msUrl,
   );
 
+  factory Paper.fromJson(Map<String, dynamic> data) => _$PaperFromJson(data);
+
   final int id;
   final String title, subject, curriculum, qualification, session, qpUrl, msUrl;
 
   @override
-  List<Object> get props => [id, title, subject, curriculum, qualification, session, qpUrl, msUrl];
+  List<Object> get props => [
+        id,
+        title,
+        subject,
+        curriculum,
+        qualification,
+        session,
+        qpUrl,
+        msUrl,
+      ];
 
-  /// A constructor, for constructing a new model instance from a JSON response.
-  factory Paper.convertFromJSON(Map<String, dynamic> data) => Paper(
-        data['id'],
-        data['title'],
-        data['subject'],
-        data['curriculum'],
-        data['qualification'],
-        data['session'],
-        data['qp_url'],
-        data['ms_url'],
-      );
+  Map<String, dynamic> toJson() => _$PaperToJson(this);
 }
 
+@JsonSerializable()
 class Session extends Equatable {
   const Session(this.id, this.name);
+
+  factory Session.fromJson(Map<String, dynamic> data) => _$SessionFromJson(data);
 
   final int id;
   final String name;
@@ -71,8 +81,7 @@ class Session extends Equatable {
   @override
   List<Object> get props => [id, name];
 
-  /// A constructor, for constructing a new model instance from a JSON response.
-  factory Session.convertFromJSON(Map<String, dynamic> data) => Session(data['id'], data['name']);
+  Map<String, dynamic> toJson() => _$SessionToJson(this);
 }
 
 enum PDFType { ms, qs }

@@ -1,10 +1,10 @@
-import 'dart:developer';
+import 'dart:developer' show log;
 
 import 'package:dio/dio.dart' show BaseOptions, Dio;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' show PrettyDioLogger;
-import 'package:qp_for_all/src/utils.dart';
 
 import '../models.dart' show Subject;
+import '../utils.dart' show getDownloadPath;
 
 /// A service that uses dio to connect to the server and fetch data.
 class APIService {
@@ -12,7 +12,9 @@ class APIService {
 
   /// Initializes the service.
   void initialize() {
-    _dio.interceptors.add(PrettyDioLogger(logPrint: (object) => log(object.toString())));
+    _dio.interceptors.add(
+      PrettyDioLogger(logPrint: (object) => log(object.toString())),
+    );
   }
 
   /// Connects to the server and fetches data i.e a list of subjects.
@@ -20,7 +22,9 @@ class APIService {
     final response = await _dio.get('/subjects/', queryParameters: {'query': query});
 
     return (response.data as List)
-        .map<Subject>((subject) => Subject.convertFromJSON(subject))
+        .map<Subject>(
+          (subject) => Subject.fromJson(subject as Map<String, dynamic>),
+        )
         .toList();
   }
 
@@ -33,10 +37,14 @@ class APIService {
   ) async {
     final response = await _dio.get(
       '/subjects/$id/',
-      queryParameters: {"curriculum": curriculum, "qualification": qualification, 'query': query},
+      queryParameters: {
+        'curriculum': curriculum,
+        'qualification': qualification,
+        'query': query,
+      },
     );
 
-    return Subject.convertFromJSON(response.data);
+    return Subject.fromJson(response.data as Map<String, dynamic>);
   }
 
   /// Connects to the server and fetches a PDF file.

@@ -1,18 +1,18 @@
-import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
+import 'dart:async' show Future;
+import 'dart:developer' show log;
+import 'dart:io' show Directory, Platform;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show BuildContext, MaterialPageRoute, Navigator, Widget;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 /// Helper function for opening URLs.
-void openURLInBrowser(String url) async {
+Future<void> openURLInBrowser(String url) async {
   try {
     await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   } catch (e) {
-    throw 'Cannot launch $url';
+    throw Exception('Cannot launch $url');
   }
 }
 
