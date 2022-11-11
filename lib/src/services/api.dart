@@ -4,7 +4,7 @@ import 'package:dio/dio.dart' show BaseOptions, Dio;
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' show PrettyDioLogger;
 
-import '../models.dart' show Subject;
+import '../models.dart' show PDFType, Subject;
 import '../utils.dart' show getDownloadPath;
 
 /// A service that uses dio to connect to the server and fetch data.
@@ -49,12 +49,12 @@ class APIService {
   }
 
   /// Connects to the server and fetches a PDF file.
-  Future<String?> downloadPDFFile(String url, String file) async {
+  Future<void> downloadPDFFile(String url, String name, PDFType type) async {
     final directory = await getDownloadPath();
+    final fileType = type == PDFType.qs ? 'question_paper' : 'mark_scheme';
 
     try {
-      await _dio.download(url, '$directory/$file');
-      return directory;
+      await _dio.download(url, '$directory/${name}_$fileType.pdf');
     } catch (error, stackTrace) {
       log('ERROR', error: error, stackTrace: stackTrace);
       throw Exception('Unable to download file');

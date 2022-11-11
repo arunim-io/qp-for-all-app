@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 
 import 'controllers/settings.dart' show SettingsController;
 import 'views/home.dart' show HomeView;
-import 'views/pdf_viewer.dart';
+import 'views/pdf_view.dart';
 import 'views/settings.dart' show SettingsView;
 import 'views/subject.dart' show SubjectView;
 
@@ -51,8 +51,8 @@ class App extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SubjectView.routeName:
                     return const SubjectView();
-                  case PDFViewerView.routeName:
-                    return const PDFViewerView();
+                  case PDFView.routeName:
+                    return const PDFView();
                   default:
                     return const HomeView();
                 }

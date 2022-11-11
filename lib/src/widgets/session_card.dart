@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models.dart' show PDFType, Session, Subject;
 import '../utils.dart' show navigate;
-import '../views/pdf_viewer.dart' show PDFViewerView;
+import '../views/pdf_view.dart' show PDFView;
 
 /// A card that takes in a [Session].
 ///
@@ -48,11 +48,10 @@ class SessionCard extends StatelessWidget {
                                     child: const Text('Question Paper'),
                                     onPressed: () => navigate(
                                       context,
-                                      (_) => PDFViewerView(
+                                      (_) => PDFView(
                                         name: paper.title,
                                         url: paper.qpUrl,
                                         type: PDFType.qs,
-                                        title: 'Question Paper',
                                       ),
                                     ),
                                   ),
@@ -61,11 +60,10 @@ class SessionCard extends StatelessWidget {
                                     child: const Text('Mark Scheme'),
                                     onPressed: () => navigate(
                                       context,
-                                      (_) => PDFViewerView(
+                                      (_) => PDFView(
                                         name: paper.title,
                                         url: paper.msUrl,
                                         type: PDFType.ms,
-                                        title: 'Mark Scheme',
                                       ),
                                     ),
                                   ),

@@ -3,8 +3,10 @@ import 'dart:developer' show log;
 import 'dart:io' show Directory, Platform;
 
 import 'package:flutter/material.dart' show BuildContext, MaterialPageRoute, Navigator, Widget;
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:printing/printing.dart' show Printing;
 import 'package:url_launcher/url_launcher.dart' show LaunchMode, launchUrl;
 
 /// Helper function for opening URLs.
@@ -57,4 +59,11 @@ Future<dynamic> getStoragePermission() async {
   } else if (permission.isDenied) {
     return false;
   }
+}
+
+/// Helper function for printing PDFs.
+Future<void> printPdf(String url) async {
+  final response = await http.get(Uri.parse(url));
+
+  await Printing.layoutPdf(onLayout: (_) => response.bodyBytes);
 }
