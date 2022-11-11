@@ -8,7 +8,7 @@ import 'error.dart' show ErrorView;
 import 'settings.dart' show SettingsView;
 
 /// This widget displays the home view of the app.
-class HomeView extends HookConsumerWidget {
+class HomeView extends StatelessWidget {
   ///
   const HomeView({super.key});
 
@@ -16,7 +16,7 @@ class HomeView extends HookConsumerWidget {
   static const routeName = '/';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: const Text('QP for All'),
           actions: [
@@ -42,22 +42,26 @@ class HomeView extends HookConsumerWidget {
               SearchBar(provider: subjectSearchProvider),
               const SizedBox(height: 25),
               Expanded(
-                child: ref.watch(subjectsProvider).when(
-                      data: (subjects) => ListView.builder(
-                        restorationId: 'SubjectListView',
-                        itemCount: subjects.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return SubjectCard(subject: subjects[index]);
-                        },
-                      ),
-                      error: (error, stackTrace) => ErrorView(
-                        error: error,
-                        stackTrace: stackTrace,
-                      ),
-                      loading: () => const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      ),
-                    ),
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    return ref.watch(subjectsProvider).when(
+                          data: (subjects) => ListView.builder(
+                            restorationId: 'SubjectListView',
+                            itemCount: subjects.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return SubjectCard(subject: subjects[index]);
+                            },
+                          ),
+                          error: (error, stackTrace) => ErrorView(
+                            error: error,
+                            stackTrace: stackTrace,
+                          ),
+                          loading: () => const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          ),
+                        );
+                  },
+                ),
               ),
             ],
           ),

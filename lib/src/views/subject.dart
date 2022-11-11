@@ -8,7 +8,7 @@ import '../widgets/session_card.dart' show SessionCard;
 import 'error.dart' show ErrorView;
 
 /// A Widget for subject detail.
-class SubjectView extends ConsumerWidget {
+class SubjectView extends StatelessWidget {
   ///
   const SubjectView({super.key, this.query, this.subjectName});
 
@@ -22,7 +22,7 @@ class SubjectView extends ConsumerWidget {
   final String? subjectName;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(subjectName!),
           leading: const BackButton(color: Colors.white),
@@ -33,31 +33,35 @@ class SubjectView extends ConsumerWidget {
             children: [
               SearchBar(provider: sessionSearchProvider),
               const SizedBox(height: 25),
-              ref.watch(subjectProvider(query!)).when(
-                    error: (error, stackTrace) => ErrorView(
-                      error: error,
-                      stackTrace: stackTrace,
-                    ),
-                    loading: () => const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
-                    data: (subject) => subject.papers.where((element) {
-                      return element.curriculum == query!.curriculum;
-                    }).isEmpty
-                        ? const Center(child: Text('Nothing to show'))
-                        : Expanded(
-                            child: ListView.builder(
-                              restorationId: 'SessionListView',
-                              itemCount: subject.sessions.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return SessionCard(
-                                  session: subject.sessions[index],
-                                  subject: subject,
-                                );
-                              },
-                            ),
-                          ),
-                  ),
+              Consumer(
+                builder: (_, ref, child) {
+                  return ref.watch(subjectProvider(query: query!)).when(
+                        error: (error, stackTrace) => ErrorView(
+                          error: error,
+                          stackTrace: stackTrace,
+                        ),
+                        loading: () => const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        ),
+                        data: (subject) => subject.papers.where((paper) {
+                          return paper.curriculum == query!.curriculum;
+                        }).isEmpty
+                            ? const Center(child: Text('Nothing to show'))
+                            : Expanded(
+                                child: ListView.builder(
+                                  restorationId: 'SessionListView',
+                                  itemCount: subject.sessions.length,
+                                  itemBuilder: (_, int index) {
+                                    return SessionCard(
+                                      session: subject.sessions[index],
+                                      subject: subject,
+                                    );
+                                  },
+                                ),
+                              ),
+                      );
+                },
+              ),
             ],
           ),
         ),

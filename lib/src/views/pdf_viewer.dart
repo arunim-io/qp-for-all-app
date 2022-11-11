@@ -13,7 +13,7 @@ import 'error.dart' show ErrorView;
 /// A Widget that display a pdf reader.
 class PDFViewerView extends StatefulHookWidget {
   ///
-  const PDFViewerView({super.key, this.paper, this.url, this.type, this.title});
+  const PDFViewerView({super.key, this.title, this.name, this.url, this.type});
 
   /// The route of this view.
   static const routeName = '/pdf';
@@ -28,7 +28,7 @@ class PDFViewerView extends StatefulHookWidget {
   final String? url;
 
   /// name of the paper.
-  final String? paper;
+  final String? name;
 
   @override
   State<PDFViewerView> createState() => _PDFViewerViewState();
@@ -51,34 +51,26 @@ class _PDFViewerViewState extends State<PDFViewerView> {
 
   @override
   Widget build(BuildContext context) {
-    final String fileType;
-    if (widget.type == PDFType.qs) {
-      fileType = 'question_paper';
-    } else {
-      fileType = 'mark_scheme';
-    }
-
     final pageNumberController = useTextEditingController(
       text: pfdViewerController.currentPageNumber.toString(),
     );
 
     void download() {
+      // ignore: lines_longer_than_80_chars
+      final fileType = widget.type == PDFType.qs ? 'question_paper' : 'mark_scheme';
+      const snackBar = SnackBar(
+        content: Text('File has been downloaded.'),
+      );
+
       APIService()
-          .downloadPDFFile(
-            widget.url!,
-            '${widget.paper}_$fileType.pdf',
-          )
-          .then(
-            (value) => ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('File has been downloaded.')),
-            ),
-          );
+          .downloadPDFFile(widget.url!, '${widget.name}_$fileType.pdf')
+          .then((_) => ScaffoldMessenger.of(context).showSnackBar(snackBar));
     }
 
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
-          title: Text(widget.paper!),
+          title: Text(widget.name!),
           subtitle: Text(widget.title!),
           textColor: Colors.white,
         ),

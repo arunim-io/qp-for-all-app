@@ -1,28 +1,34 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart' show FutureProvider, StateProvider;
+import 'package:hooks_riverpod/hooks_riverpod.dart' show StateProvider;
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'models.dart' show Subject;
 import 'services/api.dart' show APIService, SubjectQuery;
+
+part 'providers.g.dart';
 
 final _api = APIService();
 
-/// [FutureProvider] instance for subjects.
-final subjectsProvider = FutureProvider.autoDispose(
-  (ref) => _api.getSubjects(ref.watch(subjectSearchProvider)),
-  name: 'subjects',
-);
+/// [StateProvider] instance for search bar in HomeView.
+final subjectSearchProvider = StateProvider((_) => '', name: 'subjectSearch');
 
-/// [FutureProvider] instance for subject with a [SubjectQuery] query parameter.
-final subjectProvider = FutureProvider.autoDispose.family(
-  (ref, SubjectQuery query) => _api.getSubject(
+/// [StateProvider] instance for search bar in SubjectView.
+final sessionSearchProvider = StateProvider((_) => '', name: 'sessionSearch');
+
+/// A provider for subjects.
+@riverpod
+FutureOr<List<Subject>> subjects(SubjectsRef ref) {
+  final search = ref.watch(subjectSearchProvider);
+
+  return _api.getSubjects(search);
+}
+
+/// a provider for subject.
+@riverpod
+FutureOr<Subject> subject(SubjectRef ref, {required SubjectQuery query}) {
+  return _api.getSubject(
     query.id,
     query.curriculum,
     query.qualification,
     ref.watch(sessionSearchProvider),
-  ),
-  name: 'subject',
-);
-
-/// StateProvider instance for search bar in HomeView.
-final subjectSearchProvider = StateProvider((_) => '', name: 'subjectSearch');
-
-/// StateProvider instance for search bar in SubjectView.
-final sessionSearchProvider = StateProvider((_) => '', name: 'sessionSearch');
+  );
+}

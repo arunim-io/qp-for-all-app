@@ -49,7 +49,7 @@ class SessionCard extends StatelessWidget {
                                     onPressed: () => navigate(
                                       context,
                                       (_) => PDFViewerView(
-                                        paper: paper.title,
+                                        name: paper.title,
                                         url: paper.qpUrl,
                                         type: PDFType.qs,
                                         title: 'Question Paper',
@@ -62,7 +62,7 @@ class SessionCard extends StatelessWidget {
                                     onPressed: () => navigate(
                                       context,
                                       (_) => PDFViewerView(
-                                        paper: paper.title,
+                                        name: paper.title,
                                         url: paper.msUrl,
                                         type: PDFType.ms,
                                         title: 'Mark Scheme',
