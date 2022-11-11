@@ -35,35 +35,42 @@ class HomeView extends StatelessWidget {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              SearchBar(provider: subjectSearchProvider),
-              const SizedBox(height: 25),
-              Expanded(
-                child: Consumer(
-                  builder: (context, ref, child) {
-                    return ref.watch(subjectsProvider).when(
-                          data: (subjects) => ListView.builder(
+        body: Consumer(
+          builder: (context, ref, child) => RefreshIndicator(
+            onRefresh: () => Future.delayed(
+              const Duration(seconds: 1),
+              () => ref.refresh(subjectsProvider),
+            ),
+            child: ref.watch(subjectsProvider).when(
+                  error: (error, stackTrace) => ErrorView(
+                    error: error,
+                    stackTrace: stackTrace,
+                  ),
+                  loading: () {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  },
+                  data: (subjects) => Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      children: [
+                        SearchBar(provider: subjectSearchProvider),
+                        const SizedBox(height: 25),
+                        Expanded(
+                          child: ListView.builder(
                             restorationId: 'SubjectListView',
+                            physics: const AlwaysScrollableScrollPhysics(),
                             itemCount: subjects.length,
                             itemBuilder: (BuildContext context, int index) {
                               return SubjectCard(subject: subjects[index]);
                             },
                           ),
-                          error: (error, stackTrace) => ErrorView(
-                            error: error,
-                            stackTrace: stackTrace,
-                          ),
-                          loading: () => const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ),
-                        );
-                  },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ],
           ),
         ),
       );

@@ -22,48 +22,56 @@ class SubjectView extends StatelessWidget {
   final String? subjectName;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(subjectName!),
-          leading: const BackButton(color: Colors.white),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              SearchBar(provider: sessionSearchProvider),
-              const SizedBox(height: 25),
-              Consumer(
-                builder: (_, ref, child) {
-                  return ref.watch(subjectProvider(query: query!)).when(
-                        error: (error, stackTrace) => ErrorView(
-                          error: error,
-                          stackTrace: stackTrace,
-                        ),
-                        loading: () => const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        ),
-                        data: (subject) => subject.papers.where((paper) {
-                          return paper.curriculum == query!.curriculum;
-                        }).isEmpty
-                            ? const Center(child: Text('Nothing to show'))
-                            : Expanded(
-                                child: ListView.builder(
-                                  restorationId: 'SessionListView',
-                                  itemCount: subject.sessions.length,
-                                  itemBuilder: (_, int index) {
-                                    return SessionCard(
-                                      session: subject.sessions[index],
-                                      subject: subject,
-                                    );
-                                  },
-                                ),
-                              ),
-                      );
-                },
-              ),
-            ],
+  Widget build(BuildContext context) {
+    final provider = subjectProvider(query: query!);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(subjectName!),
+        leading: const BackButton(color: Colors.white),
+      ),
+      body: Consumer(
+        builder: (context, ref, child) => RefreshIndicator(
+          onRefresh: () => Future.delayed(
+            const Duration(seconds: 1),
+            () => ref.refresh(provider),
           ),
+          child: ref.watch(provider).when(
+                error: (error, stackTrace) => ErrorView(
+                  error: error,
+                  stackTrace: stackTrace,
+                ),
+                loading: () => const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                ),
+                data: (subject) => subject.papers.where((paper) {
+                  return paper.curriculum == query!.curriculum;
+                }).isEmpty
+                    ? const Center(child: Text('Nothing to show'))
+                    : Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            SearchBar(provider: sessionSearchProvider),
+                            const SizedBox(height: 25),
+                            Expanded(
+                              child: ListView.builder(
+                                restorationId: 'SessionListView',
+                                itemCount: subject.sessions.length,
+                                itemBuilder: (_, int index) {
+                                  return SessionCard(
+                                    session: subject.sessions[index],
+                                    subject: subject,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
         ),
-      );
+      ),
+    );
+  }
 }
