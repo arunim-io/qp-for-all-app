@@ -111,6 +111,7 @@ class _PDFViewState extends State<PDFView> {
           valueListenable: controller,
           builder: (context, value, child) => Text(
             controller.isReady ? '${controller.currentPageNumber}/${controller.pageCount}' : '-',
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       ),
