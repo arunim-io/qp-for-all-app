@@ -1,12 +1,11 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart'
-    show FlexAppBarStyle, FlexScheme, FlexThemeData;
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
 import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 
 import 'controllers/settings.dart' show SettingsController;
 import 'views/home.dart' show HomeView;
-import 'views/pdf_view.dart';
+import 'views/pdf_view.dart' show PDFView;
 import 'views/settings.dart' show SettingsView;
 import 'views/subject.dart' show SubjectView;
 

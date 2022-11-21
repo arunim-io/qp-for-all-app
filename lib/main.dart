@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show WidgetsFlutterBinding, runApp;
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'src/app.dart' show App;
 import 'src/controllers/settings.dart' show SettingsController;
@@ -9,6 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final settingsController = SettingsController(SettingsService());
   await settingsController.loadSettings();
-  APIService().initialize();
+  await APIService().initialize();
+  await Hive.initFlutter();
   runApp(App(settingsController: settingsController));
 }

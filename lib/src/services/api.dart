@@ -1,21 +1,27 @@
 import 'dart:developer' show log;
 
 import 'package:dio/dio.dart' show BaseOptions, Dio;
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:equatable/equatable.dart' show Equatable;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' show PrettyDioLogger;
 
 import '../models.dart' show PDFType, Subject;
-import '../utils.dart' show getDownloadPath;
+import '../utils.dart' show getCacheDirectory, getDownloadPath;
 
-/// A service that uses dio to connect to the server and fetch data.
+/// A service that uses [Dio] to connect to the server and fetch data.
 class APIService {
   final _dio = Dio(BaseOptions(baseUrl: 'http://192.168.0.9:8000/api'));
 
   /// Initializes the service.
-  void initialize() {
-    _dio.interceptors.add(
+  Future<void> initialize() async {
+    final directory = await getCacheDirectory();
+    _dio.interceptors.addAll([
       PrettyDioLogger(logPrint: (object) => log(object.toString())),
-    );
+      DioCacheInterceptor(
+        options: CacheOptions(store: HiveCacheStore(directory)),
+      )
+    ]);
   }
 
   /// Connects to the server and fetches data i.e a list of subjects.
