@@ -41,23 +41,23 @@ class HomeView extends StatelessWidget {
               const Duration(seconds: 1),
               () => ref.refresh(subjectsProvider),
             ),
-            child: ref.watch(subjectsProvider).when(
-                  error: (error, stackTrace) => ErrorView(
-                    error: error,
-                    stackTrace: stackTrace,
-                  ),
-                  loading: () {
-                    return const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    );
-                  },
-                  data: (subjects) => Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: [
-                        SearchBar(provider: subjectSearchProvider),
-                        const SizedBox(height: 25),
-                        Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  SearchBar(provider: subjectSearchProvider),
+                  const SizedBox(height: 25),
+                  ref.watch(subjectsProvider).when(
+                        error: (error, stackTrace) => ErrorView(
+                          error: error,
+                          stackTrace: stackTrace,
+                        ),
+                        loading: () {
+                          return const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
+                        },
+                        data: (subjects) => Expanded(
                           child: ListView.builder(
                             restorationId: 'SubjectListView',
                             physics: const AlwaysScrollableScrollPhysics(),
@@ -67,10 +67,10 @@ class HomeView extends StatelessWidget {
                             },
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      ),
+                ],
+              ),
+            ),
           ),
         ),
       );

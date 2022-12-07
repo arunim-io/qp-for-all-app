@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["analyzer", "CAIE", "IGCSE", "IGSCE", "nunito", "restorable"]
+  "cSpell.words": [
+    "analyzer",
+    "CAIE",
+    "IGCSE",
+    "IGSCE",
+    "nunito",
+    "restorable"
+  ],
+  "dart.devToolsLocation": "active"
 }

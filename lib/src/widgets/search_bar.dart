@@ -12,26 +12,31 @@ class SearchBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var state = ref.read(provider.notifier).state;
-    final controller = useTextEditingController(text: state);
+    final controller = useTextEditingController(
+      text: ref.read(provider.notifier).state,
+    );
+
+    void setQuery(String? query) {
+      ref.read(provider.notifier).state = query ?? '';
+    }
 
     void clear() {
       controller.text = '';
-      state = '';
+      setQuery('');
     }
 
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.search),
-        suffixIcon: ref.watch(provider).isNotEmpty
+        suffixIcon: controller.text.isNotEmpty
             ? IconButton(
                 icon: const Icon(Icons.clear_rounded),
                 onPressed: clear,
               )
             : null,
       ),
-      controller: controller,
-      onChanged: (value) => state = value,
+      onChanged: setQuery,
     );
   }
 }

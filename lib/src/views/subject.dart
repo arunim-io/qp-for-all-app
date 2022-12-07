@@ -36,25 +36,25 @@ class SubjectView extends StatelessWidget {
             const Duration(seconds: 1),
             () => ref.refresh(provider),
           ),
-          child: ref.watch(provider).when(
-                error: (error, stackTrace) => ErrorView(
-                  error: error,
-                  stackTrace: stackTrace,
-                ),
-                loading: () => const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                ),
-                data: (subject) => subject.papers.where((paper) {
-                  return paper.curriculum == query!.curriculum;
-                }).isEmpty
-                    ? const Center(child: Text('Nothing to show'))
-                    : Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            SearchBar(provider: sessionSearchProvider),
-                            const SizedBox(height: 25),
-                            Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                SearchBar(provider: sessionSearchProvider),
+                const SizedBox(height: 25),
+                ref.watch(provider).when(
+                      error: (error, stackTrace) => ErrorView(
+                        error: error,
+                        stackTrace: stackTrace,
+                      ),
+                      loading: () => const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      ),
+                      data: (subject) => subject.papers.where((paper) {
+                        return paper.curriculum == query!.curriculum;
+                      }).isEmpty
+                          ? const Center(child: Text('Nothing to show'))
+                          : Expanded(
                               child: ListView.builder(
                                 restorationId: 'SessionListView',
                                 itemCount: subject.sessions.length,
@@ -66,10 +66,10 @@ class SubjectView extends StatelessWidget {
                                 },
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-              ),
+                    ),
+              ],
+            ),
+          ),
         ),
       ),
     );

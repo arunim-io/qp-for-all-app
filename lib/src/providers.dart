@@ -8,10 +8,10 @@ part 'providers.g.dart';
 
 final _api = APIService();
 
-/// [StateProvider] instance for search bar in HomeView.
+/// A [StateProvider] instance for search bar in HomeView.
 final subjectSearchProvider = StateProvider((_) => '', name: 'subjectSearch');
 
-/// [StateProvider] instance for search bar in SubjectView.
+/// A [StateProvider] instance for search bar in SubjectView.
 final sessionSearchProvider = StateProvider((_) => '', name: 'sessionSearch');
 
 /// A provider for subjects.
@@ -22,7 +22,7 @@ FutureOr<List<Subject>> subjects(SubjectsRef ref) {
   return _api.getSubjects(search);
 }
 
-/// a provider for subject.
+/// A provider for subject.
 @riverpod
 FutureOr<Subject> subject(SubjectRef ref, {required SubjectQuery query}) {
   return _api.getSubject(
