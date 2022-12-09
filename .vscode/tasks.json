@@ -6,7 +6,7 @@
     {
       "label": "run api server",
       "type": "shell",
-      "command": "cd ../backend; poe dev &",
+      "command": "cd ../backend; poe dev",
       "problemMatcher": []
     }
   ]

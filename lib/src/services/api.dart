@@ -11,7 +11,7 @@ import '../utils.dart' show getCacheDirectory, getDownloadPath;
 
 /// A service that uses [Dio] to connect to the server and fetch data.
 class APIService {
-  final _dio = Dio(BaseOptions(baseUrl: 'http://192.168.0.9:8000/api'));
+  final _dio = Dio(BaseOptions(baseUrl: 'https://qp-for-all-api.fly.dev/api'));
 
   /// Initializes the service.
   Future<void> initialize() async {
