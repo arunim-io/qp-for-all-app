@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart' show ProviderScope;
 import 'controllers/settings.dart' show SettingsController;
 import 'views/home.dart' show HomeView;
 import 'views/pdf_view.dart' show PDFView;
-import 'views/settings.dart' show SettingsView;
 import 'views/subject.dart' show SubjectView;
 
 /// The entry point for the app.
@@ -14,7 +13,7 @@ class App extends StatelessWidget {
   ///
   const App({super.key, required this.settingsController});
 
-  /// Reference to the settings controller that is also used as a parameter.
+  /// [SettingsController] passed from the parent widget.
   final SettingsController settingsController;
 
   @override
@@ -46,14 +45,14 @@ class App extends StatelessWidget {
               settings: routeSettings,
               builder: (BuildContext context) {
                 switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
                   case SubjectView.routeName:
                     return const SubjectView();
                   case PDFView.routeName:
                     return const PDFView();
                   default:
-                    return const HomeView();
+                    return HomeView(
+                      settingsController: settingsController,
+                    );
                 }
               },
             ),

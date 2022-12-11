@@ -16,19 +16,26 @@ final sessionSearchProvider = StateProvider((_) => '', name: 'sessionSearch');
 
 /// A provider for subjects.
 @riverpod
-FutureOr<List<Subject>> subjects(SubjectsRef ref) {
+FutureOr<List<Subject>> subjects(SubjectsRef ref) async {
   final search = ref.watch(subjectSearchProvider);
+  final response = await _api.getSubjects(search);
 
-  return _api.getSubjects(search);
+  ref.keepAlive();
+
+  return response;
 }
 
 /// A provider for subject.
 @riverpod
-FutureOr<Subject> subject(SubjectRef ref, {required SubjectQuery query}) {
-  return _api.getSubject(
+FutureOr<Subject> subject(SubjectRef ref, {required SubjectQuery query}) async {
+  final response = await _api.getSubject(
     query.id,
     query.curriculum,
     query.qualification,
     ref.watch(sessionSearchProvider),
   );
+
+  ref.keepAlive();
+
+  return response;
 }
