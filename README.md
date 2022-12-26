@@ -1,5 +1,7 @@
 # qp_for_all
 
+[![.github/workflows/test.yml](https://github.com/arunim-io/qp-for-all-app/actions/workflows/test.yml/badge.svg)](https://github.com/arunim-io/qp-for-all-app/actions/workflows/test.yml)
+
 A new Flutter project.
 
 ## Getting Started
