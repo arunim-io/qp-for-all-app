@@ -1,0 +1,18 @@
+on: 
+  push:
+    tags:
+      - "*"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup flutter action
+        uses: subosito/flutter-action@v2.8.0  
+        with:
+          cache: true
+      - run: flutter --version
+      - name: Fetch packages
+        run: flutter pub get
+      - name: Run tests 
+        run: flutter test
