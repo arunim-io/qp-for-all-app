@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String $subjectsHash() => r'87e9058bf0f9b75dc7e1bc3c3bccc98de16fc7de';
+String _$subjectsHash() => r'87e9058bf0f9b75dc7e1bc3c3bccc98de16fc7de';
 
 /// A provider for subjects.
 ///
@@ -38,10 +38,10 @@ final subjectsProvider = AutoDisposeFutureProvider<List<Subject>>(
   subjects,
   name: r'subjectsProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : $subjectsHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$subjectsHash,
 );
 typedef SubjectsRef = AutoDisposeFutureProviderRef<List<Subject>>;
-String $subjectHash() => r'03e1c55c8801e27ac6dd8fc7b4977ab184a7ad72';
+String _$subjectHash() => r'03e1c55c8801e27ac6dd8fc7b4977ab184a7ad72';
 
 /// A provider for subject.
 ///
@@ -59,7 +59,7 @@ class SubjectProvider extends AutoDisposeFutureProvider<Subject> {
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : $subjectHash,
+                  : _$subjectHash,
         );
 
   final SubjectQuery query;
